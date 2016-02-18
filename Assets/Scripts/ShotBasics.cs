@@ -20,7 +20,8 @@ public class ShotBasics : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Target") {
 			DestroyObject(gameObject);
-			DestroyObject(coll.gameObject);
+			//DestroyObject(coll.gameObject);
+			ObjectPool.instance.PoolObject(coll.gameObject);
 		}
 	}
 }

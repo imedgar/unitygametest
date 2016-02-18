@@ -15,7 +15,8 @@ public class BoxBasics : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Ground") {
-			DestroyObject(gameObject);
+			//DestroyObject(gameObject);
+			ObjectPool.instance.PoolObject(gameObject);
 		}
 	}
 }
