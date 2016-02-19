@@ -49,7 +49,7 @@ public class PlayerBasics : MonoBehaviour {
 	}
 
 	private void Shot(){
-		Instantiate(prefabs[0], transform.position + (transform.forward * 50), transform.rotation); 
+		//Instantiate(prefabs[0], transform.position + (transform.forward * 50), transform.rotation); 
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
