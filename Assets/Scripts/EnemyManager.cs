@@ -21,11 +21,11 @@ public class EnemyManager : MonoBehaviour
 	
 	private void SpawnPrefabBoxes(){
 		//Instantiate(prefabs[0], GetRandomX(-8.0f, 9.0f, 40.0f), Quaternion.identity);
-		ObjectPool.instance.GetObjectForType ("Box", true);
+		//ObjectPool.instance.GetObjectForType ("Box", true);
 	}
 	private void SpawnPrefabTargets(){
 		//Instantiate(prefabs[1], GetRandomX(-3.0f, 9.0f, -4.07f), Quaternion.identity);
-		ObjectPool.instance.GetObjectForType ("Target", true);
+		//ObjectPool.instance.GetObjectForType ("Target", true);
 	}
 
 	private Vector3 GetRandomX(float minX, float maxX, float yAxis){

@@ -79,7 +79,7 @@ public class ObjectPool : MonoBehaviour
 	/// <param name='onlyPooled'>
 	/// If true, it will only return an object if there is one currently pooled.
 	/// </param>
-	public GameObject GetObjectForType ( string objectType , bool onlyPooled )
+	public GameObject GetObjectForType ( string objectType , bool onlyPooled , Vector3 spawnPosition, Quaternion spawnRotation)
 	{
 		for(int i=0; i<objectPrefabs.Length; i++)
 		{
@@ -93,7 +93,10 @@ public class ObjectPool : MonoBehaviour
 					pooledObjects[i].RemoveAt(0);
 					pooledObject.transform.parent = null;
 					pooledObject.SetActiveRecursively(true);
-					
+
+					pooledObject.transform.position = spawnPosition;
+					pooledObject.transform.rotation = spawnRotation;
+
 					return pooledObject;
 					
 				} else if(!onlyPooled) {
