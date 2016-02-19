@@ -5,8 +5,6 @@ public class TerrainGenerator : MonoBehaviour
 {
 
 	public static TerrainGenerator instance;
-	// terrain references
-	public GameObject platformTerrain;
 	
 	// starting position for terrain, number found from tweaking in the editor
 	public float startSpawnPosition = 6.0f;
@@ -16,6 +14,7 @@ public class TerrainGenerator : MonoBehaviour
 	// if you need terrain at different heights
 	public float spawnYPos = 0.0f;
 	public int spawnRange = 16;
+	public float randomTerrain;
 
 	// keep track of the last position terrain was generated
 	float lastPosition;
@@ -58,7 +57,14 @@ public class TerrainGenerator : MonoBehaviour
 	// spawn terrain based on the rand int passed by the update method
 	void SpawnTerrain()
 	{
-		ObjectPool.instance.GetObjectForType ("PlatformTerrain", true, new Vector3(lastPosition, spawnYPos, 0), Quaternion.Euler(0, 0, 0));
+		randomTerrain = Random.Range(1,10);
+		if (randomTerrain <= 5) {
+			ObjectPool.instance.GetObjectForType ("PlatformTerrain2", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		} else if (randomTerrain >= 5 && randomTerrain <= 8) {
+			ObjectPool.instance.GetObjectForType ("PlatformTerrain3", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		} else {
+			ObjectPool.instance.GetObjectForType ("PlatformTerrain", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		}
 		lastPosition += startSpawnPosition;
 
 		// script is now ready to spawn more terrain

@@ -6,6 +6,8 @@ public class ObjectPool : MonoBehaviour
 {
 	
 	public static ObjectPool instance;
+
+	public string objectPoolName;
 	
 	/// <summary>
 	/// The object prefabs which the pool can handle.
@@ -37,7 +39,7 @@ public class ObjectPool : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		containerObject = new GameObject("ObjectPool");
+		containerObject = new GameObject(objectPoolName);
 		
 		//Loop through the object prefabs and make a new list for each one.
 		//We do this because the pool can only support prefabs set to it in the editor,

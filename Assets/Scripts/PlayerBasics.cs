@@ -40,7 +40,6 @@ public class PlayerBasics : MonoBehaviour {
 		}
 		if (Input.GetKey (KeyCode.W) && canJump) {
 			canJump = false;
-			Debug.Log("JUMP!");
 			rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
 		}
 		if (Input.GetKey (KeyCode.E) && timeStamp <= Time.time) {
