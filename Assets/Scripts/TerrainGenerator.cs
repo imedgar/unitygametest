@@ -15,7 +15,7 @@ public class TerrainGenerator : MonoBehaviour
 	// you can change this if here and the spawn method
 	// if you need terrain at different heights
 	public float spawnYPos = 0.0f;
-	public int spawnRange = 10;
+	public int spawnRange = 16;
 
 	// keep track of the last position terrain was generated
 	float lastPosition;

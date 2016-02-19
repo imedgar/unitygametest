@@ -14,6 +14,7 @@ public class PlayerBasics : MonoBehaviour {
 	[SerializeField]
 	float weaponCoolDown;
 	float timeStamp;
+	bool canJump;
 
 	void Start() {
 		groundCheck = GameObject.FindWithTag("Ground");
@@ -37,9 +38,11 @@ public class PlayerBasics : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D)) {
 			transform.Translate(Vector3.right * speed * Time.deltaTime);
 		}
-		//if (Input.GetKey (KeyCode.W) && isGrounded) {
-		//	transform.Translate(Vector3.up * ( speed * jumpForce ) * Time.deltaTime);
-		//}
+		if (Input.GetKey (KeyCode.W) && canJump) {
+			canJump = false;
+			transform.Translate(Vector3.up * ( speed * jumpForce ) * Time.deltaTime);
+			transform.Translate(Vector3.right * ( speed * 2 ) * Time.deltaTime);
+		}
 		if (Input.GetKey (KeyCode.E) && timeStamp <= Time.time) {
 			Shot();
 			timeStamp = Time.time + weaponCoolDown;
@@ -60,6 +63,11 @@ public class PlayerBasics : MonoBehaviour {
 			Debug.DrawLine(transform.position , groundCheck.transform.position , Color.red, 0.5f, false);
 		}
 		return result;
+	}
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "Ground") {
+			canJump = true;
+		}
 	}
 
 }
