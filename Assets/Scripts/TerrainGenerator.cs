@@ -57,13 +57,15 @@ public class TerrainGenerator : MonoBehaviour
 	// spawn terrain based on the rand int passed by the update method
 	void SpawnTerrain()
 	{
-		randomTerrain = Random.Range(1,10);
-		if (randomTerrain <= 5) {
+		randomTerrain = Random.Range(1,13);
+		if (randomTerrain <= 4) {
 			ObjectPool.instance.GetObjectForType ("PlatformTerrain2", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
-		} else if (randomTerrain >= 5 && randomTerrain <= 8) {
+		} else if (randomTerrain >= 4 && randomTerrain <= 7) {
 			ObjectPool.instance.GetObjectForType ("PlatformTerrain3", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
-		} else {
+		} else if (randomTerrain >= 7 && randomTerrain <= 10) {
 			ObjectPool.instance.GetObjectForType ("PlatformTerrain", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		} else {
+			ObjectPool.instance.GetObjectForType ("PlatformTerrain4", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
 		}
 		lastPosition += startSpawnPosition;
 
