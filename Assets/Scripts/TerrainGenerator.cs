@@ -73,10 +73,4 @@ public class TerrainGenerator : MonoBehaviour
 		canSpawn = true;
 	}
 
-	public float getLastPosition(){
-		return this.lastPosition;
-	}
-	public float getSpawnYPos(){
-		return this.spawnYPos;
-	}
 }

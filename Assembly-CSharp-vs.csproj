@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\BoxBasics.cs" />
      <Compile Include="Assets\Scripts\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
+     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\PlayerBasics.cs" />
      <Compile Include="Assets\Scripts\TerrainBasics.cs" />
