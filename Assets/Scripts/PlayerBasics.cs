@@ -24,6 +24,12 @@ public class PlayerBasics : MonoBehaviour {
 	}
 
 	void Update() {
+
+		if (Input.GetKey (KeyCode.W) && canJump) {
+			canJump = false;
+			rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
+		}
+
 	}
 
 	void FixedUpdate(){
@@ -37,10 +43,6 @@ public class PlayerBasics : MonoBehaviour {
 		}
 		if (Input.GetKey (KeyCode.D)) {
 			transform.Translate(Vector3.right * speed * Time.deltaTime);
-		}
-		if (Input.GetKey (KeyCode.W) && canJump) {
-			canJump = false;
-			rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
 		}
 		if (Input.GetKey (KeyCode.E) && timeStamp <= Time.time) {
 			Shot();
