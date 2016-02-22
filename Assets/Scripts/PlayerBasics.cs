@@ -26,8 +26,9 @@ public class PlayerBasics : MonoBehaviour {
 	void Update() {
 
 		if (Input.GetKey (KeyCode.W) && canJump) {
+			//rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
 			canJump = false;
-			rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
+			rb.velocity = new Vector3(rb.velocity.x, jumpForce);
 		}
 
 	}
