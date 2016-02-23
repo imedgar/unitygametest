@@ -19,6 +19,10 @@ public class PlayerBasics : MonoBehaviour {
 	// Player RigidBody Reference
 	Rigidbody2D rb;
 
+	// Test Stuff 
+	[SerializeField]
+	bool freeMove;
+
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
 	}
@@ -34,8 +38,11 @@ public class PlayerBasics : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-
-		Movement ();
+		if (freeMove) {
+			Movement ();
+		} else {
+			transform.Translate(Vector3.right * speed * Time.deltaTime);
+		}
 	}
 
 	void Movement() {
