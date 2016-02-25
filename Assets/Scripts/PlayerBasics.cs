@@ -23,6 +23,9 @@ public class PlayerBasics : MonoBehaviour {
 	[SerializeField]
 	bool freeMove;
 
+	// Controller
+	RuntimePlatform platform = Application.platform;
+
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
 	}
@@ -34,7 +37,14 @@ public class PlayerBasics : MonoBehaviour {
 			canJump = false;
 			rb.velocity = new Vector3(rb.velocity.x, jumpForce);
 		}
-
+		if(platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer){
+			if(Input.touchCount > 0) {
+				if(Input.GetTouch(0).phase == TouchPhase.Began && canJump){
+					canJump = false;
+					rb.velocity = new Vector3(rb.velocity.x, jumpForce);
+				}
+			}
+		}
 	}
 
 	void FixedUpdate(){
