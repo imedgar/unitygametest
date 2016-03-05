@@ -15,7 +15,7 @@ public class FollowPlayer : MonoBehaviour {
 	void LateUpdate() {
 		//Debug.Log (target.transform.position.x);
 		gameObject.transform.position = new Vector3(target.transform.position.x + xOffset,
-		                                      4,
+		                                            4 + yOffset,
 		                                      target.transform.position.z + zOffset);
 	}
 }

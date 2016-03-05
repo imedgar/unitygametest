@@ -5,7 +5,7 @@ public class EnemyManager : MonoBehaviour
 {
 	public List<GameObject> prefabs;
 	[SerializeField]
-	public bool spawnBoxes;
+	public bool spawnEnemyPlatypus;
 	[SerializeField]
 	public bool spawnEnemyBerserker;
 
@@ -13,17 +13,20 @@ public class EnemyManager : MonoBehaviour
 
 	private void Start(){
 		playerRef = GameObject.FindGameObjectWithTag ("Player");
-		if (spawnBoxes) {
-			InvokeRepeating("SpawnPrefabBoxes",0, 2.0f);
+		if (spawnEnemyPlatypus) {
+			InvokeRepeating("SpawnPrefabPlatypus",0, 6.0f);
 		}
 		if (spawnEnemyBerserker) {
 			InvokeRepeating("SpawnPrefabBerserker",3, 5.0f);
 		}
 	}
 	
-	private void SpawnPrefabBoxes(){
+	private void SpawnPrefabPlatypus(){
 		//Instantiate(prefabs[0], GetRandomX(-8.0f, 9.0f, 40.0f), Quaternion.identity);
 		//ObjectPool.instance.GetObjectForType ("Box", true);
+		if (GameManager.Instance.canStartGameLogic ()) {
+			ObjectPool.instance.GetObjectForType ("Platypus", true, new Vector3 (playerRef.transform.position.x + 24, 9, 0), Quaternion.Euler (0, 0, 0));
+		}
 	}
 	private void SpawnPrefabBerserker(){
 		//Instantiate(prefabs[1], GetRandomX(-3.0f, 9.0f, -4.07f), Quaternion.identity);

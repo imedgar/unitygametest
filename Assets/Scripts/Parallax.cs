@@ -14,7 +14,7 @@ public class Parallax : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		gameObject.transform.position = new Vector3 (target.transform.position.x + 9,
-		                                             4,
+		                                             4 + 2,
 		                                             transform.position.z);
 		if (GameManager.Instance.currentState != GameManager.GameStates.Mainmenu) {
 

@@ -30,9 +30,10 @@ public class GameManager : MonoBehaviour {
 			return _instance;
 		} 
 	}
-	private int score = 0;
+	private int score;
 
 	void Awake() {
+		score = 0;
 		currentState = GameStates.Mainmenu;
 		platform = Application.platform;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
