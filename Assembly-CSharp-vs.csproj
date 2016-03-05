@@ -46,16 +46,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BoxBasics.cs" />
      <Compile Include="Assets\Scripts\DeathDetector.cs" />
+     <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\EnemyBerserker.cs" />
      <Compile Include="Assets\Scripts\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Item.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Parallax.cs" />
-     <Compile Include="Assets\Scripts\PlayerBasics.cs" />
-     <Compile Include="Assets\Scripts\TerrainBasics.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Terrain.cs" />
      <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

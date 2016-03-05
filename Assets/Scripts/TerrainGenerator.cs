@@ -48,7 +48,6 @@ public class TerrainGenerator : MonoBehaviour
 		{
 			// turn off spawning until ready to spawn again
 			canSpawn = false;
-
 			// SpawnTerrain is called and passed the randomchoice number
 			SpawnTerrain();
 		}
@@ -57,16 +56,17 @@ public class TerrainGenerator : MonoBehaviour
 	// spawn terrain based on the rand int passed by the update method
 	void SpawnTerrain()
 	{
-		randomTerrain = Random.Range(1,13);
+		randomTerrain = Random.Range(1,10);
 		if (randomTerrain <= 4) {
 			ObjectPool.instance.GetObjectForType ("PlatformTerrain2", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
 		} else if (randomTerrain >= 4 && randomTerrain <= 7) {
 			ObjectPool.instance.GetObjectForType ("PlatformTerrain3", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
 		} else if (randomTerrain >= 7 && randomTerrain <= 10) {
 			ObjectPool.instance.GetObjectForType ("PlatformTerrain", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
-		} else {
-			ObjectPool.instance.GetObjectForType ("PlatformTerrain4", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
-		}
+		} 
+		//else {
+		//	ObjectPool.instance.GetObjectForType ("PlatformTerrain4", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		//}
 		lastPosition += startSpawnPosition;
 
 		// script is now ready to spawn more terrain

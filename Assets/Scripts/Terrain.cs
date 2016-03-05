@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TerrainBasics : MonoBehaviour {
+public class Terrain : MonoBehaviour {
 
 	public GameObject camRef;
 

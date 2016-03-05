@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour {
 	private static GameManager _instance;
 
 	public GameStates currentState;
+	
+	// Controller Android
+	public RuntimePlatform platform;
+	
+	// Canvas Ref
+	GameObject canvas;
 
 	public static GameManager Instance { 
 		get{
@@ -28,6 +34,8 @@ public class GameManager : MonoBehaviour {
 
 	void Awake() {
 		currentState = GameStates.Mainmenu;
+		platform = Application.platform;
+		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
 		_instance = this;
 	}
 
@@ -38,6 +46,29 @@ public class GameManager : MonoBehaviour {
 		} else {
 			// resume
 			//Time.time = 1.0f;
+		}
+	}
+
+	public bool canStartGameLogic (){
+		if (currentState == GameStates.Mainmenu) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public void activeGameLogic (){
+		if (platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer) {
+			if (Input.touchCount > 0) {
+				if (Input.GetTouch (0).phase == TouchPhase.Began) {
+					GameManager.Instance.currentState = GameManager.GameStates.Ingame;
+					canvas.SetActive(false);
+				}
+			}
+		} 
+		if (Input.GetKey (KeyCode.Space)) {
+			GameManager.Instance.currentState = GameManager.GameStates.Ingame;
+			canvas.SetActive(false);
 		}
 	}
 }
