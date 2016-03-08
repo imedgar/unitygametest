@@ -10,9 +10,16 @@ public class GameManager : MonoBehaviour {
 		Ingame
 	}
 
+	public enum PlayerStates {
+		Idle,
+		Running,
+		Shielded
+	}
+
 	private static GameManager _instance;
 
 	public GameStates currentState;
+	public PlayerStates currentPlayerState;
 	
 	// Controller Android
 	public RuntimePlatform platform;
@@ -35,6 +42,7 @@ public class GameManager : MonoBehaviour {
 	void Awake() {
 		score = 0;
 		currentState = GameStates.Mainmenu;
+		currentPlayerState = PlayerStates.Idle;
 		platform = Application.platform;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
 		_instance = this;
@@ -63,12 +71,14 @@ public class GameManager : MonoBehaviour {
 			if (Input.touchCount > 0) {
 				if (Input.GetTouch (0).phase == TouchPhase.Began) {
 					GameManager.Instance.currentState = GameManager.GameStates.Ingame;
+					GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
 					canvas.SetActive(false);
 				}
 			}
 		} 
 		if (Input.GetKey (KeyCode.Space)) {
 			GameManager.Instance.currentState = GameManager.GameStates.Ingame;
+			GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
 			canvas.SetActive(false);
 		}
 	}

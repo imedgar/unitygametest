@@ -5,6 +5,7 @@ public class Parallax : MonoBehaviour {
 
 	public float velocity = 0f;
 	public GameObject target;
+	public float offsetY;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +15,7 @@ public class Parallax : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		gameObject.transform.position = new Vector3 (target.transform.position.x + 9,
-		                                             4 + 2,
+		                                             4 + 2 + offsetY,
 		                                             transform.position.z);
 		if (GameManager.Instance.currentState != GameManager.GameStates.Mainmenu) {
 

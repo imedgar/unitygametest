@@ -11,15 +11,35 @@ public class EnemyBerserker : Enemy {
 	private float timeStamp;
 
 	protected override void Collided(Collision2D coll){
-		if (coll.gameObject.tag == "Ground") {
+		switch (coll.gameObject.tag) {
+		case "Ground":
 			canJump = true;
-		} else if (coll.gameObject.tag == "Player") {
-			GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
-			Application.LoadLevel (Application.loadedLevel);
-		} else if (coll.gameObject.tag == "EdgeCollider" &&  
-		           playerInRange ()) {
-			rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
+			break;
+		case "Player":
+			if(GameManager.Instance.currentPlayerState != GameManager.PlayerStates.Shielded){
+				GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
+				Application.LoadLevel (Application.loadedLevel);
+			} else {
+				KillEnemy ();
+			}
+			break;
+		case "EdgeCollider":
+			if (playerInRange ()) { rb.velocity = new Vector3 (rb.velocity.x, jumpForce); }
+			break;
+		default:
+			break;
 		}
+		//if (coll.gameObject.tag == "Ground") {
+		//	canJump = true;
+		//} else if (coll.gameObject.tag == "Player") {
+		//	GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
+		//	Application.LoadLevel (Application.loadedLevel);
+		//} else if (coll.gameObject.tag == "EdgeCollider" &&  
+		//           playerInRange ()) {
+		//	rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
+		//} else if (coll.gameObject.tag == "Shield") {
+		//	KillEnemy ();
+		//}
 	}
 
 	protected override void Movement(){

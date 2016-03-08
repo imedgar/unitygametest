@@ -11,9 +11,15 @@ public class Player: MonoBehaviour {
 	[SerializeField]
 	public List<GameObject> prefabs;
 	[SerializeField]
-	float weaponCoolDown;
+	GameObject shield;
 
-	float timeStamp;
+	float weaponCoolDown;
+	[SerializeField]
+	float shieldCoolDown;
+	[SerializeField]
+	float shieldDuration;
+
+	float timeStampShield;
 	bool canJump;
 
 	// Player RigidBody Reference
@@ -23,8 +29,10 @@ public class Player: MonoBehaviour {
 	[SerializeField]
 	bool freeMove;
 
+
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
+		shield.SetActive (false);
 		Debug.Log (GameManager.Instance.currentState);
 	}
 
@@ -43,6 +51,7 @@ public class Player: MonoBehaviour {
 			} else {
 				MoveForward();
 			}
+			UseShield ();
 		}
 	}
 
@@ -75,8 +84,14 @@ public class Player: MonoBehaviour {
 		}
 		if (GameManager.Instance.platform == RuntimePlatform.Android || 
 		    GameManager.Instance.platform == RuntimePlatform.IPhonePlayer) {
-			if (Input.touchCount > 0) {
-				if (Input.GetTouch (0).phase == TouchPhase.Began && canJump) {
+			//if (Input.touchCount > 0) {
+			//	if (Input.GetTouch (0).phase == TouchPhase.Began && canJump) {
+			//		canJump = false;
+			//		rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
+			//	}
+			//}
+			foreach (Touch touch in Input.touches) {
+				if (touch.position.x < Screen.width/2 && canJump) {
 					canJump = false;
 					rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
 				}
@@ -94,9 +109,34 @@ public class Player: MonoBehaviour {
 	}
 
 	private void Shot(){
-		if (Input.GetKey (KeyCode.E) && timeStamp <= Time.time) {
-			timeStamp = Time.time + weaponCoolDown;
-		}
-		//Instantiate(prefabs[0], transform.position + (transform.forward * 50), transform.rotation); 
+		//if (Input.GetKey (KeyCode.E) && timeStamp <= Time.time) {
+		//	timeStamp = Time.time + weaponCoolDown;
+		//}
 	}
+
+	private void UseShield (){
+		if (Input.GetKey (KeyCode.R) && timeStampShield <= Time.time) {
+			timeStampShield = Time.time + shieldCoolDown;
+			shield.SetActive(true);
+			GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Shielded;
+			Invoke("DontShield", shieldDuration);
+		}
+		if (GameManager.Instance.platform == RuntimePlatform.Android || 
+		    GameManager.Instance.platform == RuntimePlatform.IPhonePlayer) {
+			foreach (Touch touch in Input.touches) {
+				if (touch.position.x > Screen.width/2 && timeStampShield <= Time.time) {
+					timeStampShield = Time.time + shieldCoolDown;
+					shield.SetActive(true);
+					GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Shielded;
+					Invoke("DontShield", shieldDuration);
+				}
+			}
+		}
+	}
+
+	private void DontShield(){
+		shield.SetActive(false);
+		GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
+	}
+
 }

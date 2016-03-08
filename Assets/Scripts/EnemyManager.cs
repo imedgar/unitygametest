@@ -32,7 +32,7 @@ public class EnemyManager : MonoBehaviour
 		//Instantiate(prefabs[1], GetRandomX(-3.0f, 9.0f, -4.07f), Quaternion.identity);
 		//ObjectPool.instance.GetObjectForType ("Target", true);
 		if (GameManager.Instance.canStartGameLogic ()) {
-			ObjectPool.instance.GetObjectForType ("Berserker", true, new Vector3 (playerRef.transform.position.x + 24, 1, 0), Quaternion.Euler (0, 0, 0));
+			ObjectPool.instance.GetObjectForType ("Berserker", true, new Vector3 (playerRef.transform.position.x + 24, 3, 0), Quaternion.Euler (0, 0, 0));
 		}
 	}
 

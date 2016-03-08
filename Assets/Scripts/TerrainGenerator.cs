@@ -57,15 +57,15 @@ public class TerrainGenerator : MonoBehaviour
 	void SpawnTerrain()
 	{
 		randomTerrain = Random.Range(1,10);
-		if (randomTerrain <= 4) {
-			ObjectPool.instance.GetObjectForType ("PlatformTerrain2", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
-		} else if (randomTerrain >= 4 && randomTerrain <= 7) {
-			ObjectPool.instance.GetObjectForType ("PlatformTerrain3", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
-		} else if (randomTerrain >= 7 && randomTerrain <= 10) {
-			ObjectPool.instance.GetObjectForType ("PlatformTerrain", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		if (randomTerrain <= 3) {
+			ObjectPool.instance.GetObjectForType ("prefab1", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		} else if (randomTerrain >= 3 && randomTerrain <= 6.5) {
+			ObjectPool.instance.GetObjectForType ("prefab2", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		} else if (randomTerrain >= 6.5 && randomTerrain <= 10) {
+			ObjectPool.instance.GetObjectForType ("prefab4", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
 		} 
 		//else {
-		//	ObjectPool.instance.GetObjectForType ("PlatformTerrain4", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		//	ObjectPool.instance.GetObjectForType ("prefab4", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
 		//}
 		lastPosition += startSpawnPosition;
 
