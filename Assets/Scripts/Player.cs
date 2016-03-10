@@ -100,12 +100,14 @@ public class Player: MonoBehaviour {
 	}
 
 	void CollisionEvents(Collision2D coll){
-		if (coll.gameObject.tag == "Ground") {
-			canJump = true;
-		} else if (coll.gameObject.tag == "DeathDetector") {
-			GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
-			Application.LoadLevel(Application.loadedLevel);
-		}
+        if (coll.gameObject.tag == "Wall") {
+            canJump = false;
+        } else if (coll.gameObject.tag == "DeathDetector") {
+            GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
+            Application.LoadLevel(Application.loadedLevel);
+        } else if (coll.gameObject.tag == "Ground") {
+            canJump = true;
+        }
 	}
 
 	private void Shot(){

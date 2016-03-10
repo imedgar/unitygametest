@@ -16,6 +16,8 @@ public class TerrainGenerator : MonoBehaviour
 	public int spawnRange = 16;
 	public float randomTerrain;
 
+    int lastBuilding = -1;
+
 	// keep track of the last position terrain was generated
 	float lastPosition;
 
@@ -57,16 +59,23 @@ public class TerrainGenerator : MonoBehaviour
 	void SpawnTerrain()
 	{
 		randomTerrain = Random.Range(1,10);
-		if (randomTerrain <= 5) {
-			ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos -3, 0), Quaternion.Euler (0, 0, 0));
-		} else{
-			ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos - 3, 0), Quaternion.Euler (0, 0, 0));
-		} 
-		//else {
-		//	ObjectPool.instance.GetObjectForType ("prefab4", true, new Vector3 (lastPosition, spawnYPos, 0), Quaternion.Euler (0, 0, 0));
-		//}
-		lastPosition += startSpawnPosition + 5;
 
+        if (lastBuilding == 0 && randomTerrain > 5)
+        {
+            lastPosition += startSpawnPosition + 3;
+        }
+        else if (lastBuilding == 1 && randomTerrain <= 5) { lastPosition += startSpawnPosition + 7; }
+
+        if (randomTerrain <= 5) {
+			ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + 3, 0), Quaternion.Euler (0, 0, 0));
+              
+		} else{
+			ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos + 7, 0), Quaternion.Euler (0, 0, 0));  
+        }
+
+        if (randomTerrain <= 5) { lastBuilding = 0; }
+        else { lastBuilding = 1; }
+        Debug.Log( lastBuilding+"<->"+randomTerrain);
 		// script is now ready to spawn more terrain
 		canSpawn = true;
 	}
