@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 	public GameStates currentState;
 	public PlayerStates currentPlayerState;
 	
+	public float score;
+	
 	// Controller Android
 	public RuntimePlatform platform;
 	
@@ -37,7 +39,6 @@ public class GameManager : MonoBehaviour {
 			return _instance;
 		} 
 	}
-	private int score;
 
 	void Awake() {
 		score = 0;

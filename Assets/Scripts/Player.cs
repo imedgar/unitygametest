@@ -18,10 +18,10 @@ public class Player: MonoBehaviour {
 	float shieldCoolDown;
 	[SerializeField]
 	float shieldDuration;
-
 	float timeStampShield;
-	bool canJump;
-
+	
+	RaycastHit2D hit;
+	
 	// Player RigidBody Reference
 	Rigidbody2D rb;
 
@@ -29,11 +29,9 @@ public class Player: MonoBehaviour {
 	[SerializeField]
 	bool freeMove;
 
-
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
 		shield.SetActive (false);
-		Debug.Log (GameManager.Instance.currentState);
 	}
 
 	void Update() {
@@ -51,12 +49,10 @@ public class Player: MonoBehaviour {
 			} else {
 				MoveForward();
 			}
-			UseShield ();
+			GameManager.Instance.score = transform.position.x;
+			UseShield ();	
+			
 		}
-	}
-
-	void OnCollisionEnter2D(Collision2D coll) {
-		CollisionEvents (coll);
 	}
 	
 	void Movement() {
@@ -76,37 +72,34 @@ public class Player: MonoBehaviour {
 	}
 
 	void Jump (){
-		if (Input.GetKey (KeyCode.W) && canJump) {
+		
+		if (Input.GetKey (KeyCode.W) && IsGrounded()) {
 			//rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
-			canJump = false;
 			rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
-			
 		}
 		if (GameManager.Instance.platform == RuntimePlatform.Android || 
 		    GameManager.Instance.platform == RuntimePlatform.IPhonePlayer) {
 			//if (Input.touchCount > 0) {
-			//	if (Input.GetTouch (0).phase == TouchPhase.Began && canJump) {
-			//		canJump = false;
+			//	if (Input.GetTouch (0).phase == TouchPhase.Began && isGrounded) {
 			//		rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
 			//	}
 			//}
 			foreach (Touch touch in Input.touches) {
-				if (touch.position.x < Screen.width/2 && canJump) {
-					canJump = false;
+				if (touch.position.x < Screen.width/2 && IsGrounded()) {
 					rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
 				}
 			}
 		}
 	}
-
+	
+	void OnCollisionEnter2D(Collision2D coll) {
+		CollisionEvents (coll);
+	}
+	
 	void CollisionEvents(Collision2D coll){
-        if (coll.gameObject.tag == "Wall") {
-            canJump = false;
-        } else if (coll.gameObject.tag == "DeathDetector") {
+		if (coll.gameObject.tag == "DeathDetector") {
             GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
             Application.LoadLevel(Application.loadedLevel);
-        } else if (coll.gameObject.tag == "Ground") {
-            canJump = true;
         }
 	}
 
@@ -140,5 +133,19 @@ public class Player: MonoBehaviour {
 		shield.SetActive(false);
 		GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
 	}
-
+	
+	private bool IsGrounded(){
+		hit = Physics2D.Raycast(transform.position, Vector2.down, 0.65f, 1 << LayerMask.NameToLayer("Ground"));
+        if (hit) {     
+			if(hit.collider.tag == "Ground"){
+				return true;
+			}
+			else {
+				return false;
+			}  
+        } 
+		return false;
+        //Debug.DrawRay(transform.position, Vector2.down, Color.red, 0.65f);
+	}
+	 
 }

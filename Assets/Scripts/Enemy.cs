@@ -13,6 +13,7 @@ abstract public class Enemy : MonoBehaviour {
 
 	protected float initialSpeed;
 	protected bool canJump;
+	protected RaycastHit2D hit;
 	
 	// Enemy RigidBody Reference
 	protected Rigidbody2D rb;
@@ -69,6 +70,20 @@ abstract public class Enemy : MonoBehaviour {
 
 	protected void MoveBackward (){
 		transform.Translate ( Vector3.right * speed * Time.deltaTime );
+	}
+	
+	protected bool IsGrounded(){
+		hit = Physics2D.Raycast(transform.position, Vector2.down, 0.65f, 1 << LayerMask.NameToLayer("Ground"));
+        if (hit) {     
+			if(hit.collider.tag == "Ground"){
+				return true;
+			}
+			else {
+				return false;
+			}  
+        } 
+		return false;
+        //Debug.DrawRay(transform.position, Vector2.down, Color.red, 0.65f);
 	}
 
 	// Unimplemented Methods

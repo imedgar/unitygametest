@@ -14,7 +14,7 @@ public class DeathDetector : MonoBehaviour {
 	void Update () {
 
 		transform.position = new Vector3(playerRef.transform.position.x ,
-		                                 -5,
+		                                 -10,
 		                                 playerRef.transform.position.z);
 	
 	}

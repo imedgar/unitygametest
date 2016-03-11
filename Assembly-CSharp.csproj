@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Parallax.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\Terrain.cs" />
      <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
  <Reference Include="UnityEngine.UI">
