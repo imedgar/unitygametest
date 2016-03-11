@@ -33,8 +33,9 @@ public class EnemyBerserker : Enemy {
 	}
 
 	protected override void PhysicsStuff(){
-		if ( GameManager.Instance.canStartGameLogic ()) {
-			//Jump ();
+		if ( GameManager.Instance.canStartGameLogic () &&
+            playerInRange() ) {
+            Jump();
 		}
 	}
 

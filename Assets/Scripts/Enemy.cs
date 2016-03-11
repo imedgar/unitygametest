@@ -14,9 +14,9 @@ abstract public class Enemy : MonoBehaviour {
 	protected float initialSpeed;
 	protected bool canJump;
 	protected RaycastHit2D hit;
-	
-	// Enemy RigidBody Reference
-	protected Rigidbody2D rb;
+
+    // Enemy RigidBody Reference
+    protected Rigidbody2D rb;
 	// Player GameObject Reference
 	protected GameObject playerRef;
 	// Camera reference

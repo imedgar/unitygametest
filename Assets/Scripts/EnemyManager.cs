@@ -22,7 +22,7 @@ public class EnemyManager : MonoBehaviour
 			InvokeRepeating("SpawnPrefabPlatypus",0, 6.0f);
 		}
 		if (spawnEnemyBerserker) {
-			InvokeRepeating("SpawnPrefabBerserker",2, 5.0f);
+			InvokeRepeating("SpawnPrefabBerserker",2, 4.0f);
 		}
 	}
 	
