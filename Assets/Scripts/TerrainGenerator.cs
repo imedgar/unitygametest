@@ -14,8 +14,12 @@ public class TerrainGenerator : MonoBehaviour
 	// if you need terrain at different heights
 	public float spawnYPos = 0.0f;
 	public int spawnRange = 16;
-	public float randomTerrain;
+    public float minDistanceBetweenBuildings;
+    public float maxDistanceBetweenBuildings;
+    public int minHighBuildings;
+    public int maxHighBuildings;
 
+    private float randomTerrain;
     int lastBuilding;
 
 	// keep track of the last position terrain was generated
@@ -62,17 +66,17 @@ public class TerrainGenerator : MonoBehaviour
 
         if (lastBuilding == 0 && randomTerrain > 5)
         {
-            lastPosition += startSpawnPosition + 8;
+            lastPosition += startSpawnPosition + minDistanceBetweenBuildings;
         }
         else { 
-			lastPosition += startSpawnPosition + 12; 
+			lastPosition += startSpawnPosition + maxDistanceBetweenBuildings; 
 		}
 		
         if (randomTerrain <= 5) {
-			ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + 3, 0), Quaternion.Euler (0, 0, 0));
+			ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, 0), Quaternion.Euler (0, 0, 0));
             lastBuilding = 0;
 		} else{
-			ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos + 7, 0), Quaternion.Euler (0, 0, 0));  
+			ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos + maxHighBuildings, 0), Quaternion.Euler (0, 0, 0));  
 			lastBuilding = 1;
 		}
 
