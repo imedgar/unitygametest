@@ -13,7 +13,6 @@ public class TerrainGenerator : MonoBehaviour
 	// you can change this if here and the spawn method
 	// if you need terrain at different heights
 	public float spawnYPos = 0.0f;
-	public int spawnRange = 16;
     public float minDistanceBetweenBuildings;
     public float maxDistanceBetweenBuildings;
     public int minHighBuildings;
@@ -21,16 +20,26 @@ public class TerrainGenerator : MonoBehaviour
 
     private float randomTerrain;
     int lastBuilding;
-
+	
 	// keep track of the last position terrain was generated
 	float lastPosition;
+	
+	// Street ground variables
+	
+	public float streetStartSpawnPos;
+	public float streetSpawnYPos;
+	float streetlastPos;
+	
 
+	public int spawnRange = 16;
+	
 	// camera reference
 	GameObject cam;
-
+	
 	// used to check if terrain can be generated depending on the camera position and lastposition
-	bool canSpawn = true;
-
+	bool canSpawnRoofs = true;
+	bool canSpawnStreets = true;
+	
 	void Awake ()
 	{
 		instance = this;
@@ -50,18 +59,27 @@ public class TerrainGenerator : MonoBehaviour
 		// if the camera is farther than the number last position minus 16 terrain is spawned
 		// a lesser number may make the terrain 'pop' into the scene too early
 		// showing the player the terrain spawning which would be unwanted
-		if (cam.transform.position.x >= lastPosition - spawnRange && canSpawn == true)
+		
+		if (cam.transform.position.x >= lastPosition - spawnRange && canSpawnRoofs == true)
 		{
 			// turn off spawning until ready to spawn again
-			canSpawn = false;
-			// SpawnTerrain is called and passed the randomchoice number
-			SpawnTerrain();
+			canSpawnRoofs = false;
+			// SpawnRoofs is called and passed the randomchoice number
+			SpawnRoofs();
+		}
+		if (cam.transform.position.x >= streetlastPos - spawnRange && canSpawnStreets == true && GameManager.Instance.currentState == GameManager.GameStates.Street)
+		{
+			// turn off spawning until ready to spawn again
+			canSpawnStreets = false;
+			// SpawnRoofs is called and passed the randomchoice number
+			SpawnStreets();
 		}
 	}
 	
 	// spawn terrain based on the rand int passed by the update method
-	void SpawnTerrain()
+	void SpawnRoofs()
 	{
+		// Roofs algorithm 
 		randomTerrain = Random.Range(1,10);
 
         if (lastBuilding == 0 && randomTerrain > 5)
@@ -73,15 +91,39 @@ public class TerrainGenerator : MonoBehaviour
 		}
 		
         if (randomTerrain <= 5) {
-			ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, 0), Quaternion.Euler (0, 0, 0));
+			if (GameManager.Instance.currentState == GameManager.GameStates.Street){
+				ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, -1), Quaternion.Euler (0, 0, 0));
+
+			}else{
+				ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, -1), Quaternion.Euler (0, 0, 0));
+
+			}
             lastBuilding = 0;
 		} else{
-			ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos + maxHighBuildings, 0), Quaternion.Euler (0, 0, 0));  
+			if (GameManager.Instance.currentState == GameManager.GameStates.Street){
+				ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, -1), Quaternion.Euler (0, 0, 0));
+
+			}else{
+				ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos + maxHighBuildings, -1), Quaternion.Euler (0, 0, 0));
+			}
 			lastBuilding = 1;
 		}
-
+		
 		// script is now ready to spawn more terrain
-		canSpawn = true;
+		canSpawnRoofs = true;
+	}
+	
+	void SpawnStreets (){
+		
+		// Street
+		
+		if (GameManager.Instance.streetsPrepared == 0){streetlastPos += cam.transform.position.x - 20;}
+		else{streetlastPos += streetStartSpawnPos;}
+		
+		ObjectPool.instance.GetObjectForType ("street_ground", true, new Vector3 (streetlastPos, streetSpawnYPos, 0), Quaternion.Euler (0, 0, 0));
+		// script is now ready to spawn more terrain
+		canSpawnStreets = true;
+		GameManager.Instance.streetsPrepared ++;
 	}
 
 }

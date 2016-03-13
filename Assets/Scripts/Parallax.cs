@@ -14,9 +14,20 @@ public class Parallax : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gameObject.transform.position = new Vector3 (target.transform.position.x + 9,
-		                                             4 + 2 + offsetY,
-		                                             transform.position.z);
+
+
+				if (target.transform.position.y < -4){
+		gameObject.transform.position = new Vector3 (target.transform.position.x + 9, 
+			-3 + 2 + offsetY, 
+			transform.position.z);
+		}
+		else{
+		gameObject.transform.position = new Vector3 (target.transform.position.x + 9, 
+			4 + 2 + offsetY, 
+			transform.position.z);
+
+		}
+
 		if (GameManager.Instance.currentState != GameManager.GameStates.Mainmenu) {
 
 			GetComponent<Renderer> ().material.mainTextureOffset = new Vector2 ((Time.time * velocity) % 1, 0);

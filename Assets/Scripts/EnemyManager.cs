@@ -34,10 +34,12 @@ public class EnemyManager : MonoBehaviour
 	}
 	private void SpawnPrefabBerserker(){
 		if (GameManager.Instance.canStartGameLogic ()) {
-            spawnPositionX = GetSpawnPositionOverBuilding();
+			if (GameManager.Instance.currentState == GameManager.GameStates.Roofs){spawnPositionX = GetSpawnPositionOverBuilding();}
+			else if (GameManager.Instance.currentState == GameManager.GameStates.Street){spawnPositionX = (int) playerRef.transform.position.x + 50;}
+            
             if (spawnPositionX != 0)
             {
-                ObjectPool.instance.GetObjectForType("Berserker", true, new Vector3(spawnPositionX, 6, 0), Quaternion.Euler(0, 0, 0));
+                ObjectPool.instance.GetObjectForType("Berserker", true, new Vector3(spawnPositionX, 6, -2), Quaternion.Euler(0, 0, 0));
             }
 		}
 	}
@@ -48,15 +50,17 @@ public class EnemyManager : MonoBehaviour
 		for (int i = (int)playerRef.transform.position.x + distanceToPlayerSpawn; 
             i < Mathf.Round(playerRef.transform.position.x + distanceToPlayerSpawn) + 50; 
             i++ )
-        {
-			hit = Physics2D.Raycast(playerPosition, Vector2.down, 100, 1 << LayerMask.NameToLayer("Ground"));
-            if (hit) {
-                if (hit.collider.tag == "Ground"){
-                    positionX = i;
+        {	
+			hit = Physics2D.Raycast(playerPosition, Vector2.down, 200, 1 << LayerMask.NameToLayer("Ground"));
+			
+	        if (hit) {
+	            if (hit.collider.tag == "Ground"){
+	                positionX = i;
 					break;
 				}
 			} 
 		}
+		Debug.Log (positionX);
 		return positionX;
 	}
 

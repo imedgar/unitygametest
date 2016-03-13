@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour {
 		Intro,
 		Mainmenu,
 		LevelSelection,
-		Ingame
+		Ingame,
+		Roofs,
+		Street
 	}
 
 	public enum PlayerStates {
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour {
 	public PlayerStates currentPlayerState;
 	
 	public float score;
+	public int streetsPrepared;
+	public int playerTransition;
 	
 	// Controller Android
 	public RuntimePlatform platform;
@@ -44,6 +48,8 @@ public class GameManager : MonoBehaviour {
 		score = 0;
 		currentState = GameStates.Mainmenu;
 		currentPlayerState = PlayerStates.Idle;
+		streetsPrepared = 0;
+		playerTransition = 0;
 		platform = Application.platform;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
 		_instance = this;
@@ -71,14 +77,14 @@ public class GameManager : MonoBehaviour {
 		if (platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer) {
 			if (Input.touchCount > 0) {
 				if (Input.GetTouch (0).phase == TouchPhase.Began) {
-					GameManager.Instance.currentState = GameManager.GameStates.Ingame;
+					GameManager.Instance.currentState = GameManager.GameStates.Roofs;
 					GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
 					canvas.SetActive(false);
 				}
 			}
 		} 
 		if (Input.GetKey (KeyCode.Space)) {
-			GameManager.Instance.currentState = GameManager.GameStates.Ingame;
+			GameManager.Instance.currentState = GameManager.GameStates.Roofs;
 			GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
 			canvas.SetActive(false);
 		}

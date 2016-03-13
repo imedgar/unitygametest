@@ -6,13 +6,15 @@ public class Player: MonoBehaviour {
 	//Variables
 	[SerializeField]
 	float speed;
+	private float initialSpeed;
+	float acceleration;	
 	[SerializeField]
 	float jumpForce;
 	[SerializeField]
 	public List<GameObject> prefabs;
 	[SerializeField]
 	GameObject shield;
-
+	
 	float weaponCoolDown;
 	[SerializeField]
 	float shieldCoolDown;
@@ -24,7 +26,7 @@ public class Player: MonoBehaviour {
 	
 	// Player RigidBody Reference
 	Rigidbody2D rb;
-
+	
 	// Test Stuff 
 	[SerializeField]
 	bool freeMove;
@@ -32,9 +34,11 @@ public class Player: MonoBehaviour {
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
 		shield.SetActive (false);
+		acceleration = 0.001f;
+		initialSpeed = speed;
 	}
 
-	void Update() {
+	void Update() {		
 		if (GameManager.Instance.canStartGameLogic()) {
 			Jump ();
 		} else {
@@ -44,14 +48,17 @@ public class Player: MonoBehaviour {
 
 	void FixedUpdate(){
 		if (GameManager.Instance.canStartGameLogic()) {
+			if (GameManager.Instance.currentState == GameManager.GameStates.Street){
+				Transition ();
+			}
 			if (freeMove) {
 				Movement ();
 			} else {
 				MoveForward();
 			}
+			UseShield ();
+			// Update score
 			GameManager.Instance.score = transform.position.x;
-			UseShield ();	
-			
 		}
 	}
 	
@@ -69,6 +76,7 @@ public class Player: MonoBehaviour {
 	}
 	void MoveForward() {
 		transform.Translate(Vector3.right * speed * Time.deltaTime);
+		speed += acceleration;
 	}
 
 	void Jump (){
@@ -79,11 +87,6 @@ public class Player: MonoBehaviour {
 		}
 		if (GameManager.Instance.platform == RuntimePlatform.Android || 
 		    GameManager.Instance.platform == RuntimePlatform.IPhonePlayer) {
-			//if (Input.touchCount > 0) {
-			//	if (Input.GetTouch (0).phase == TouchPhase.Began && isGrounded) {
-			//		rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
-			//	}
-			//}
 			foreach (Touch touch in Input.touches) {
 				if (touch.position.x < Screen.width/2 && IsGrounded()) {
 					rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
@@ -137,7 +140,7 @@ public class Player: MonoBehaviour {
 	private bool IsGrounded(){
 		hit = Physics2D.Raycast(transform.position, Vector2.down, 0.65f, 1 << LayerMask.NameToLayer("Ground"));
         if (hit) {     
-			if(hit.collider.tag == "Ground"){
+			if(hit.collider.tag == "Ground" || hit.collider.tag == "Street"){
 				return true;
 			}
 			else {
@@ -148,4 +151,11 @@ public class Player: MonoBehaviour {
         //Debug.DrawRay(transform.position, Vector2.down, Color.red, 0.65f);
 	}
 	 
+	private void Transition (){
+		if (GameManager.Instance.playerTransition == 0){
+			rb.velocity = new Vector3 (rb.velocity.x, jumpForce * 4);
+			GameManager.Instance.playerTransition++;
+			speed = initialSpeed;
+		}
+	}
 }

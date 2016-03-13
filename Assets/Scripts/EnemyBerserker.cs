@@ -45,7 +45,7 @@ public class EnemyBerserker : Enemy {
 	}
 
 	protected void Jump(){
-		if (!IsGrounded() && timeStamp <= Time.time) {
+		if (!IsGrounded() && timeStamp <= Time.time && GameManager.Instance.currentState == GameManager.GameStates.Roofs) {
 			rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
 			timeStamp = Time.time + jumpCd;
 		}
