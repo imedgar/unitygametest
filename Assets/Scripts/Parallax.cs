@@ -14,23 +14,36 @@ public class Parallax : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
-				if (target.transform.position.y < -4){
-		gameObject.transform.position = new Vector3 (target.transform.position.x + 9, 
+		Behaviour (GameManager.Instance.currentState);
+	}
+	
+	void Behaviour (GameManager.GameStates currentGameState){
+		
+		if (target.transform.position.y < -4){
+			gameObject.transform.position = new Vector3 (target.transform.position.x + 9, 
 			-3 + 2 + offsetY, 
 			transform.position.z);
 		}
 		else{
-		gameObject.transform.position = new Vector3 (target.transform.position.x + 9, 
+			gameObject.transform.position = new Vector3 (target.transform.position.x + 9, 
 			4 + 2 + offsetY, 
 			transform.position.z);
 
 		}
-
-		if (GameManager.Instance.currentState != GameManager.GameStates.Mainmenu) {
-
-			GetComponent<Renderer> ().material.mainTextureOffset = new Vector2 ((Time.time * velocity) % 1, 0);
+		
+		if (GameManager.Instance.CanStartGameLogic())
+        {
+            switch (currentGameState)
+            {
+                case GameManager.GameStates.Mainmenu:
+                    break;
+                case GameManager.GameStates.Roofs:
+                case GameManager.GameStates.Street:
+					GetComponent<Renderer> ().material.mainTextureOffset = new Vector2 ((Time.time * velocity) % 1, 0);
+                    break;
+                default:
+                    break;
+            }
 		}
 	}
 }

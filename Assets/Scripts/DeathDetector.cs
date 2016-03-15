@@ -4,7 +4,10 @@ using System.Collections;
 public class DeathDetector : MonoBehaviour {
 
 	GameObject playerRef;
-
+	[SerializeField]
+	public int deathDetectorY;
+	
+	
 	// Use this for initialization
 	void Start () {
 		playerRef = GameObject.FindGameObjectWithTag ("Player");
@@ -12,10 +15,9 @@ public class DeathDetector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 		transform.position = new Vector3(playerRef.transform.position.x ,
-		                                 -3,
+		                                 deathDetectorY,
 		                                 playerRef.transform.position.z);
-	
 	}
 }

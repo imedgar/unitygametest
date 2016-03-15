@@ -56,28 +56,46 @@ public class TerrainGenerator : MonoBehaviour
 	
 	void Update()
 	{
-		// if the camera is farther than the number last position minus 16 terrain is spawned
-		// a lesser number may make the terrain 'pop' into the scene too early
-		// showing the player the terrain spawning which would be unwanted
-		
-		if (cam.transform.position.x >= lastPosition - spawnRange && canSpawnRoofs == true)
-		{
-			// turn off spawning until ready to spawn again
-			canSpawnRoofs = false;
-			// SpawnRoofs is called and passed the randomchoice number
-			SpawnRoofs();
-		}
-		if (cam.transform.position.x >= streetlastPos - spawnRange && canSpawnStreets == true && GameManager.Instance.currentState == GameManager.GameStates.Street)
-		{
-			// turn off spawning until ready to spawn again
-			canSpawnStreets = false;
-			// SpawnRoofs is called and passed the randomchoice number
-			SpawnStreets();
-		}
+		Behaviour (GameManager.Instance.currentState);
 	}
 	
+	protected void Behaviour(GameManager.GameStates currentGameState){
+        switch (currentGameState)
+        {
+			// if the camera is farther than the number last position minus 16 terrain is spawned
+			// a lesser number may make the terrain 'pop' into the scene too early
+			// showing the player the terrain spawning which would be unwanted
+            case GameManager.GameStates.Mainmenu:
+            case GameManager.GameStates.Roofs:
+				if (cam.transform.position.x >= lastPosition - spawnRange && canSpawnRoofs == true)
+				{
+					// turn off spawning until ready to spawn again
+					canSpawnRoofs = false;
+					// SpawnRoofs is called and passed the randomchoice number
+					SpawnRoofs(currentGameState);
+				}
+                break;
+            case GameManager.GameStates.Street:
+				if (cam.transform.position.x >= streetlastPos - spawnRange && canSpawnStreets == true)
+				{
+					// turn off spawning until ready to spawn again
+					canSpawnRoofs = false;
+					// SpawnRoofs is called and passed the randomchoice number
+					SpawnRoofs(currentGameState);
+					// turn off spawning until ready to spawn again
+					canSpawnStreets = false;
+					// SpawnRoofs is called and passed the randomchoice number
+					SpawnStreets();
+				}			
+                break;
+            default:
+                break;
+        }
+	}
+	
+	
 	// spawn terrain based on the rand int passed by the update method
-	void SpawnRoofs()
+	void SpawnRoofs(GameManager.GameStates spawnMode)
 	{
 		// Roofs algorithm 
 		randomTerrain = Random.Range(1,10);
@@ -91,16 +109,10 @@ public class TerrainGenerator : MonoBehaviour
 		}
 		
         if (randomTerrain <= 5) {
-			if (GameManager.Instance.currentState == GameManager.GameStates.Street){
-				ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, -1), Quaternion.Euler (0, 0, 0));
-
-			}else{
-				ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, -1), Quaternion.Euler (0, 0, 0));
-
-			}
+			ObjectPool.instance.GetObjectForType ("building_1", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, -1), Quaternion.Euler (0, 0, 0));
             lastBuilding = 0;
 		} else{
-			if (GameManager.Instance.currentState == GameManager.GameStates.Street){
+			if (spawnMode == GameManager.GameStates.Street){
 				ObjectPool.instance.GetObjectForType ("building_2", true, new Vector3 (lastPosition, spawnYPos + minHighBuildings, -1), Quaternion.Euler (0, 0, 0));
 
 			}else{
@@ -113,12 +125,16 @@ public class TerrainGenerator : MonoBehaviour
 		canSpawnRoofs = true;
 	}
 	
+	// Concept 
 	void SpawnStreets (){
 		
 		// Street
-		
-		if (GameManager.Instance.streetsPrepared == 0){streetlastPos += cam.transform.position.x - 20;}
-		else{streetlastPos += streetStartSpawnPos;}
+		if (GameManager.Instance.streetsPrepared == 0){
+			streetlastPos += cam.transform.position.x - 20;
+		}
+		else{
+			streetlastPos += streetStartSpawnPos;
+		}
 		
 		ObjectPool.instance.GetObjectForType ("street_ground", true, new Vector3 (streetlastPos, streetSpawnYPos, 0), Quaternion.Euler (0, 0, 0));
 		// script is now ready to spawn more terrain

@@ -24,17 +24,46 @@ public class EnemyBerserker : Enemy {
 			break;
 		}
 	}
-
+	protected override void Behaviour(string whichUpdate, GameManager.GameStates currentGameState){
+	   	if (GameManager.Instance.CanStartGameLogic())
+        {
+            switch (currentGameState)
+            {
+                case GameManager.GameStates.Mainmenu:
+                    break;
+                case GameManager.GameStates.Roofs:
+                    // Update Loop Stuff
+                    if (whichUpdate.Equals("Update"))
+                    {
+						
+                        PhysicsStuff ();
+                    }
+                    // FixedUpdate Loop Stuff
+                    else if (whichUpdate.Equals("FixedUpdate"))
+                    {
+					
+						BackToPool ();
+						Movement ();
+                    }
+                    break;
+                case GameManager.GameStates.Street:
+                    break;
+                default:
+                    break;
+            }
+		}
+	}
+	
 	protected override void Movement(){
-		if ( GameManager.Instance.canStartGameLogic () &&  
-		    playerInRange () ) {
+		if ( PlayerInRange () ) {
+			
 			BerserkerRun ();
 		}
 	}
 
 	protected override void PhysicsStuff(){
-		if ( GameManager.Instance.canStartGameLogic () &&
-            playerInRange() ) {
+		if ( PlayerInRange() ) {
+			
             Jump();
 		}
 	}
@@ -45,7 +74,7 @@ public class EnemyBerserker : Enemy {
 	}
 
 	protected void Jump(){
-		if (!IsGrounded() && timeStamp <= Time.time && GameManager.Instance.currentState == GameManager.GameStates.Roofs) {
+		if ( !IsGrounded() && timeStamp <= Time.time ) {
 			rb.velocity = new Vector3 (rb.velocity.x, jumpForce);
 			timeStamp = Time.time + jumpCd;
 		}

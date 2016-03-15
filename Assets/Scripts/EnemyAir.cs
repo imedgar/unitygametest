@@ -8,13 +8,10 @@ public class EnemyAir : Enemy {
 	private float flyCd;
 
 	protected override void PhysicsStuff(){
-		if ( GameManager.Instance.canStartGameLogic () ) {
-			Fly ();
-		}
+		Fly ();
 	}
 	protected override void Movement(){
-		if ( GameManager.Instance.canStartGameLogic () &&  
-		    playerInRange () ) {
+		if ( PlayerInRange () ) {
 			MoveForward ();
 		}
 	}

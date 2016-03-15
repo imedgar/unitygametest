@@ -32,15 +32,14 @@ abstract public class Enemy : MonoBehaviour {
 	
 	// Physics stuff
 	protected void Update () {
-		PhysicsStuff ();
+		Behaviour ("Update", GameManager.Instance.currentState);
 	}
 
 	// Movement
 	protected void FixedUpdate(){
-		BackToPool ();
-		Movement ();
+		Behaviour ("FixedUpdate", GameManager.Instance.currentState);
 	}
-
+	
 	protected void OnCollisionEnter2D(Collision2D coll) {
 		Collided (coll);
 	}
@@ -56,7 +55,7 @@ abstract public class Enemy : MonoBehaviour {
 		}
 	}
 
-	protected bool playerInRange () {
+	protected bool PlayerInRange () {
 		if ((transform.position.x - playerRef.transform.position.x) < visionRange) {
 			return true;
 		} else {
@@ -89,5 +88,6 @@ abstract public class Enemy : MonoBehaviour {
 	// Unimplemented Methods
 	protected virtual void Movement(){}
 	protected virtual void Collided(Collision2D coll){}
+	protected virtual void Behaviour(string whichUpdate, GameManager.GameStates currentGameState){}
 	protected virtual void PhysicsStuff(){}
 }

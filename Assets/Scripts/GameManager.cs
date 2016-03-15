@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public bool canStartGameLogic (){
+	public bool CanStartGameLogic (){
 		if (currentState == GameStates.Mainmenu) {
 			return false;
 		} else {
@@ -73,20 +73,32 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void activeGameLogic (){
-		if (platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer) {
-			if (Input.touchCount > 0) {
-				if (Input.GetTouch (0).phase == TouchPhase.Began) {
-					GameManager.Instance.currentState = GameManager.GameStates.Roofs;
-					GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
-					canvas.SetActive(false);
+	public void ActiveGameLogic (){
+		switch (platform)
+        {
+            case RuntimePlatform.Android:
+            case RuntimePlatform.IPhonePlayer:
+				if (Input.touchCount > 0) {
+					if (Input.GetTouch (0).phase == TouchPhase.Began) {
+						GameLogicBegin();
+					}
 				}
-			}
-		} 
-		if (Input.GetKey (KeyCode.Space)) {
-			GameManager.Instance.currentState = GameManager.GameStates.Roofs;
-			GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
-			canvas.SetActive(false);
-		}
+                break;
+            case RuntimePlatform.WindowsEditor:
+            case RuntimePlatform.WindowsPlayer:
+            case RuntimePlatform.WindowsWebPlayer:
+				if (Input.GetKey (KeyCode.Space)) {
+					GameLogicBegin();
+				}
+                break;
+            default:
+                break;
+        }
+		
+	}
+	private void GameLogicBegin (){
+		GameManager.Instance.currentState = GameManager.GameStates.Roofs;
+		GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
+		canvas.SetActive(false);		
 	}
 }

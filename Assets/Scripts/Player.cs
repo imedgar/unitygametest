@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     void Behaviour(string whichUpdate, GameManager.GameStates currentGameState)
     {
-        if (GameManager.Instance.canStartGameLogic())
+        if (GameManager.Instance.CanStartGameLogic())
         {
             switch (currentGameState)
             {
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
             }
         }
         else {
-            GameManager.Instance.activeGameLogic();
+            GameManager.Instance.ActiveGameLogic();
         }
     }
 

@@ -5,8 +5,6 @@ public class EnemyManager : MonoBehaviour
 {
 	public List<GameObject> prefabs;
 	[SerializeField]
-	public bool spawnEnemyPlatypus;
-	[SerializeField]
 	public bool spawnEnemyBerserker;
     [SerializeField]
     public int distanceToPlayerSpawn;
@@ -18,25 +16,19 @@ public class EnemyManager : MonoBehaviour
 
 	private void Start(){
 		playerRef = GameObject.FindGameObjectWithTag ("Player");
-		if (spawnEnemyPlatypus) {
-			InvokeRepeating("SpawnPrefabPlatypus",0, 6.0f);
-		}
 		if (spawnEnemyBerserker) {
 			InvokeRepeating("SpawnPrefabBerserker",2, 4.0f);
 		}
 	}
 	
-	private void SpawnPrefabPlatypus(){
-		if (GameManager.Instance.canStartGameLogic ()) {
-			ObjectPool.instance.GetObjectForType ("Platypus", true, new Vector3 (playerRef.transform.position.x + 24, 9, 0)
-                , Quaternion.Euler (0, 0, 0));
-		}
-	}
 	private void SpawnPrefabBerserker(){
-		if (GameManager.Instance.canStartGameLogic ()) {
-			if (GameManager.Instance.currentState == GameManager.GameStates.Roofs){spawnPositionX = GetSpawnPositionOverBuilding();}
-			else if (GameManager.Instance.currentState == GameManager.GameStates.Street){spawnPositionX = (int) playerRef.transform.position.x + 50;}
-            
+		if (GameManager.Instance.CanStartGameLogic ()) {
+			if (GameManager.Instance.currentState == GameManager.GameStates.Roofs){
+				spawnPositionX = ChumpRayBuilding();
+			}
+			else if (GameManager.Instance.currentState == GameManager.GameStates.Street){
+				spawnPositionX = (int) playerRef.transform.position.x + 50;
+			}
             if (spawnPositionX != 0)
             {
                 ObjectPool.instance.GetObjectForType("Berserker", true, new Vector3(spawnPositionX, 6, -2), Quaternion.Euler(0, 0, 0));
@@ -44,31 +36,39 @@ public class EnemyManager : MonoBehaviour
 		}
 	}
 	
-	private int GetSpawnPositionOverBuilding (){
-        int positionX = 0;
-        Vector2 playerPosition = new Vector2(playerRef.transform.position.x + distanceToPlayerSpawn, 10);
-		for (int i = (int)playerRef.transform.position.x + distanceToPlayerSpawn; 
-            i < Mathf.Round(playerRef.transform.position.x + distanceToPlayerSpawn) + 50; 
-            i++ )
-        {	
-			hit = Physics2D.Raycast(playerPosition, Vector2.down, 200, 1 << LayerMask.NameToLayer("Ground"));
-			
-	        if (hit) {
+	
+    void Behaviour(string whichUpdate, GameManager.GameStates currentGameState)
+    {
+        if (GameManager.Instance.CanStartGameLogic())
+        {
+            switch (currentGameState)
+            {
+                case GameManager.GameStates.Roofs:
+                    break;
+                case GameManager.GameStates.Street:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+	
+	private int ChumpRayBuilding (){
+        
+		int positionX = 0;
+		int chumpRayX = (int) playerRef.transform.position.x + distanceToPlayerSpawn;
+
+		for (int i = chumpRayX; i < (chumpRayX + 50); i++ ){
+			Vector2 chumpRayPosition = new Vector2(i, 10);
+			hit = Physics2D.Raycast(chumpRayPosition, Vector2.down, 200, 1 << LayerMask.NameToLayer("Ground"));
+			if (hit) {
 	            if (hit.collider.tag == "Ground"){
 	                positionX = i;
 					break;
 				}
 			} 
 		}
-		Debug.Log (positionX);
 		return positionX;
 	}
 
-	private Vector3 GetRandomX(float minX, float maxX, float yAxis){
-
-		float randomX = Random.Range (minX, maxX);
-		Vector3 vectorRandomX = new Vector3 (randomX, yAxis, 0);
-
-		return vectorRandomX;
-	}
 }
