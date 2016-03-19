@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	public float score;
 	public int streetsPrepared;
 	public int playerTransition;
+	public bool playerEnteredInnerZone;
 	
 	// Controller Android
 	public RuntimePlatform platform;

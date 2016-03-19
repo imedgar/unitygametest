@@ -12,34 +12,33 @@ public class GameStatus : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		deathDetectorRef = GameObject.FindGameObjectWithTag ("DeathDetector");
-		// Set the texture so that it is the the size of the screen and covers it.
 	}
 	
 	// Update is called once per frame
-	void Update () {	
-		if (randomInnerZone() && GameManager.Instance.CanStartGameLogic()){
-			toInnerZone();
-			Debug.Log ("INNER ZONE");
-		}
+	void Update () {
 		
+		ToInnerZone ();
+		InnerZoom ();
+
 		// Streets mode
 		//if (GameManager.Instance.score * 1.5 > 800){
-		//	transition ();
+		//	ToStreets ();
 		//}
-		
-		
 	}
 	
-	void transition () {
+	void ToStreets () {
 		GameManager.Instance.currentState = GameManager.GameStates.Street;
 		deathDetectorRef.SetActive (false);
 	}
 	
-	void toInnerZone () {
-		GameManager.Instance.currentState = GameManager.GameStates.InnerZone;
+	void ToInnerZone () {
+		if (RandomInnerZone() && GameManager.Instance.CanStartGameLogic()){
+			GameManager.Instance.currentState = GameManager.GameStates.InnerZone;
+			Debug.Log ("INNER ZONE");
+		}
 	}
 	
-	bool randomInnerZone () {
+	bool RandomInnerZone () {
 		if (timeStampInnerZone <= Time.time)
         {
 			int randomInt;
@@ -49,8 +48,20 @@ public class GameStatus : MonoBehaviour {
 
 				return true;
 			}
-			
 		}
 		return false;
+	}
+	
+	void InnerZoom () {
+		if (GameManager.Instance.playerEnteredInnerZone){
+			if (Camera.main.orthographicSize > 7){
+				Camera.main.orthographicSize -= 1f * Time.deltaTime; 
+			}
+			
+		} else {
+			if (Camera.main.orthographicSize < 9){
+				Camera.main.orthographicSize += 1f * Time.deltaTime; 
+			}
+		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Terrain : MonoBehaviour {
+public class FarToPool : MonoBehaviour {
 
 	private GameObject camRef;
 	private BoxCollider2D boxCol;
@@ -16,16 +16,16 @@ public class Terrain : MonoBehaviour {
 	void Update () {
 		if ((camRef.transform.position.x) - (gameObject.transform.position.x + 0.1) >= 25)
 		{
-			DestroyTerrain();
+			BacktoPool();
 		}
-		if (GameManager.Instance.currentState == GameManager.GameStates.Street && gameObject.tag == "Ground"){
-			boxCol.enabled = false;
-		} else if (GameManager.Instance.currentState != GameManager.GameStates.Street && gameObject.tag == "Ground"){
-			boxCol.enabled = true;
-		}
+		//if (GameManager.Instance.currentState == GameManager.GameStates.Street && gameObject.tag == "Ground"){
+		//	boxCol.enabled = false;
+		//} else if (GameManager.Instance.currentState != GameManager.GameStates.Street && gameObject.tag == "Ground"){
+		//	boxCol.enabled = true;
+		//}
 	}
 
-	void DestroyTerrain () {
+	void BacktoPool () {
 		ObjectPool.instance.PoolObject(gameObject);
 	}
 }

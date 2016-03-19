@@ -47,6 +47,8 @@ public class EnemyManager : MonoBehaviour
                     break;
                 case GameManager.GameStates.Street:
                     break;
+		        case GameManager.GameStates.InnerZone:
+                    break;
                 default:
                     break;
             }

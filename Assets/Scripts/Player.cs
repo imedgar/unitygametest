@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
         MOVE_FORWARD,
         MOVE_BACKWARD,
         JUMP,
-        SHIELD
+        SHIELD,
+		BEND
     }
 
     //Variables
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
 
     void Behaviour(string whichUpdate, GameManager.GameStates currentGameState)
     {
+		// Handles all game states
         if (GameManager.Instance.CanStartGameLogic())
         {
             switch (currentGameState)
@@ -76,6 +78,7 @@ public class Player : MonoBehaviour
                     else if (whichUpdate.Equals("FixedUpdate"))
                     {
                         //Transition();
+						// Movement Stuff
                         if (freeMove)
                         {
                             platformControllerActions(PlayerActions.MOVE_FORWARD);
@@ -84,8 +87,9 @@ public class Player : MonoBehaviour
                         else {
                             Movement(PlayerActions.MOVE_FORWARD);
                         }
-
+						// Other actions
                         platformControllerActions(PlayerActions.SHIELD);
+						//platformControllerActions(PlayerActions.BEND);
 
                         // Update score
                         GameManager.Instance.score = transform.position.x;
@@ -100,16 +104,18 @@ public class Player : MonoBehaviour
             }
         }
         else {
+			// Activate game
             GameManager.Instance.ActiveGameLogic();
         }
     }
 
     private void platformControllerActions(PlayerActions action)
     {
-
+		// Device platform controllers
         switch (GameManager.Instance.platform)
         {
             case RuntimePlatform.Android:
+			case RuntimePlatform.IPhonePlayer:
                 foreach (Touch touch in Input.touches)
                 {
                     if (touch.position.x > Screen.width / 2 && action.Equals(PlayerActions.SHIELD))
@@ -121,8 +127,6 @@ public class Player : MonoBehaviour
                         Jump();
                     }
                 }
-                break;
-            case RuntimePlatform.IPhonePlayer:
                 break;
             case RuntimePlatform.WindowsEditor:
             case RuntimePlatform.WindowsPlayer:
@@ -143,13 +147,18 @@ public class Player : MonoBehaviour
                 {
                     Movement(PlayerActions.MOVE_FORWARD);
                 }
+			    if (Input.GetKey(KeyCode.S) && action.Equals(PlayerActions.BEND))
+                {
+                    Bend ();
+                }
                 break;
             default:
                 break;
         }
 
     }
-
+	
+	// Movement function *Backward and Forward*
     void Movement(PlayerActions direction)
     {
         if (direction.Equals(PlayerActions.MOVE_BACKWARD))
@@ -162,7 +171,8 @@ public class Player : MonoBehaviour
             speed += acceleration;
         }
     }
-
+	
+	// Jump function
     void Jump()
     {
         if (IsGrounded())
@@ -171,13 +181,16 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
         }
     }
-
+	
+	// Shield function
     private void UseShield()
     {
+		// Shield if cooldown allows
         if (timeStampShield <= Time.time)
         {
             timeStampShield = Time.time + shieldCoolDown;
             shield.SetActive(true);
+			// Switch player state
             GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Shielded;
             Invoke("StopShielding", shieldDuration);
         }
@@ -185,10 +198,16 @@ public class Player : MonoBehaviour
 
     private void StopShielding()
     {
+		// Stop Shielding
         shield.SetActive(false);
         GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
     }
-
+	
+	private void Bend (){
+		transform.Rotate (Vector3.forward * -90);
+	}
+	
+	// Transition action to streets
     private void Transition()
     {
         if (GameManager.Instance.playerTransition == 0)
@@ -198,10 +217,26 @@ public class Player : MonoBehaviour
             speed = initialSpeed;
         }
     }
-
+	
+	// Collision Events
     void OnCollisionEnter2D(Collision2D coll)
     {
         CollisionEvents(coll);
+    }
+	
+	// Inner Zone detection
+	void OnTriggerEnter2D(Collider2D coll) {
+		if (coll.gameObject.tag == "InnerZone")
+        {
+			if(GameManager.Instance.playerEnteredInnerZone){
+				GameManager.Instance.playerEnteredInnerZone = false;
+				Debug.Log ("OUT");
+			}
+			else {
+				GameManager.Instance.playerEnteredInnerZone = true;
+				Debug.Log ("IN");
+			}
+        }
     }
 
     void CollisionEvents(Collision2D coll)
@@ -211,14 +246,20 @@ public class Player : MonoBehaviour
             GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
             Application.LoadLevel(Application.loadedLevel);
         }
+		if (coll.gameObject.tag == "Obstacle")
+        {
+            GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
+            Application.LoadLevel(Application.loadedLevel);
+        }
     }
-
+	
+	// Grounded Check *Debug option drawray*
     private bool IsGrounded()
     {
         hit = Physics2D.Raycast(transform.position, Vector2.down, 0.65f, 1 << LayerMask.NameToLayer("Ground"));
         if (hit)
         {
-            if (hit.collider.tag == "Ground" || hit.collider.tag == "Street")
+            if (hit.collider.tag == "Ground" || hit.collider.tag == "Street" || hit.collider.tag == "InnerZone")
             {
                 return true;
             }
@@ -229,5 +270,5 @@ public class Player : MonoBehaviour
         return false;
         //Debug.DrawRay(transform.position, Vector2.down, Color.red, 0.65f);
     }
-
+		
 }

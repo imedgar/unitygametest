@@ -30,7 +30,7 @@ public class TerrainGenerator : MonoBehaviour
 	public float streetSpawnYPos;
 	private float streetlastPos;
 	
-	//
+	// Inner variables
 	
 	public float spawnInnerYPos;
 	private float innerlastPos;
@@ -43,7 +43,6 @@ public class TerrainGenerator : MonoBehaviour
 	// used to check if terrain can be generated depending on the camera position and lastposition
 	private bool canSpawnRoofs = true;
 	private bool canSpawnStreets = true;
-	private bool canSpawnInners = true;
 	
 	void Awake ()
 	{
@@ -150,19 +149,39 @@ public class TerrainGenerator : MonoBehaviour
 		GameManager.Instance.streetsPrepared ++;
 	}
 	
-	// spawn inners based on the rand int passed by the update method
+	// spawn inners
 	void SpawnInners ()
 	{
-		// Roofs algorithm 
+		// Inners algorithm 
+		
+		// Check distance from last building
 		if (lastBuilding == 0) {
 			lastPosition += 9f;
 		}
 		else {
 			lastPosition += 12f;
 		}
-
-		for (int i = 0; i < 5; i++){			
-			ObjectPool.instance.GetObjectForType ("building_3", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+		
+		bool lastObstacle = false;
+		
+		for (int i = 0; i < 8; i++){
+			if (i == 0){
+				ObjectPool.instance.GetObjectForType ("building_3_init", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+			} 
+			else if (i == 7) {
+				ObjectPool.instance.GetObjectForType ("building_3_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+			} 
+			else{
+				ObjectPool.instance.GetObjectForType ("building_3", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
+				int obstaclePc = Random.Range(1,10);
+				if (obstaclePc < 9 && obstaclePc > 5 && !lastObstacle){
+					ObjectPool.instance.GetObjectForType ("obstacle_1", true, new Vector3 (lastPosition, 4, -2), Quaternion.Euler (0, 0, 0));
+					Debug. Log ("Obstacle!!");
+					lastObstacle = true;
+				} else {
+					lastObstacle = false;
+				}
+			}
 			lastPosition = lastPosition + 4.7f;
 		}
 		lastPosition -= 5f;
