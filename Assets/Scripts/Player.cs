@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
             {
                 case GameManager.GameStates.Mainmenu:
                     break;
+				case GameManager.GameStates.InnerZone:
                 case GameManager.GameStates.Roofs:
                     // Update Loop Stuff
                     if (whichUpdate.Equals("Update"))
@@ -92,7 +93,7 @@ public class Player : MonoBehaviour
                     break;
                 case GameManager.GameStates.Street:
                         Transition();
-                    break;
+                    break;			
                 default:
                     Debug.Log("Unaccepted command!");
                     break;

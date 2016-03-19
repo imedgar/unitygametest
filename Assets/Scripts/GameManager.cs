@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour {
 		LevelSelection,
 		Ingame,
 		Roofs,
-		Street
+		Street,
+		InnerZone
 	}
 
 	public enum PlayerStates {

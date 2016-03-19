@@ -19,26 +19,31 @@ public class TerrainGenerator : MonoBehaviour
     public int maxHighBuildings;
 
     private float randomTerrain;
-    int lastBuilding;
+    private int lastBuilding;
 	
 	// keep track of the last position terrain was generated
-	float lastPosition;
+	private float lastPosition;
 	
 	// Street ground variables
 	
 	public float streetStartSpawnPos;
 	public float streetSpawnYPos;
-	float streetlastPos;
+	private float streetlastPos;
 	
+	//
+	
+	public float spawnInnerYPos;
+	private float innerlastPos;
 
 	public int spawnRange = 16;
 	
 	// camera reference
-	GameObject cam;
+	private GameObject cam;
 	
 	// used to check if terrain can be generated depending on the camera position and lastposition
-	bool canSpawnRoofs = true;
-	bool canSpawnStreets = true;
+	private bool canSpawnRoofs = true;
+	private bool canSpawnStreets = true;
+	private bool canSpawnInners = true;
 	
 	void Awake ()
 	{
@@ -88,6 +93,9 @@ public class TerrainGenerator : MonoBehaviour
 					SpawnStreets();
 				}			
                 break;
+			case GameManager.GameStates.InnerZone:
+				SpawnInners ();
+				break;
             default:
                 break;
         }
@@ -141,5 +149,24 @@ public class TerrainGenerator : MonoBehaviour
 		canSpawnStreets = true;
 		GameManager.Instance.streetsPrepared ++;
 	}
+	
+	// spawn inners based on the rand int passed by the update method
+	void SpawnInners ()
+	{
+		// Roofs algorithm 
+		if (lastBuilding == 0) {
+			lastPosition += 9f;
+		}
+		else {
+			lastPosition += 12f;
+		}
+
+		for (int i = 0; i < 5; i++){			
+			ObjectPool.instance.GetObjectForType ("building_3", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+			lastPosition = lastPosition + 4.7f;
+		}
+		lastPosition -= 5f;
+		GameManager.Instance.currentState = GameManager.GameStates.Roofs;
+	}	
 
 }
