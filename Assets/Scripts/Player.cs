@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     float speed;
     private float initialSpeed;
+	private float speedRecorder;
     float acceleration;
     [SerializeField]
     float jumpForce;
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
         shield.SetActive(false);
         acceleration = 0.001f;
         initialSpeed = speed;
+		speedRecorder = speed;
     }
 
     void Update()
@@ -230,10 +232,15 @@ public class Player : MonoBehaviour
         {
 			if(GameManager.Instance.playerEnteredInnerZone){
 				GameManager.Instance.playerEnteredInnerZone = false;
+				if(Time.deltaTime > 3f){
+					speed = speedRecorder * 0.9f;
+				}
 				Debug.Log ("OUT");
 			}
 			else {
 				GameManager.Instance.playerEnteredInnerZone = true;
+				speedRecorder = speed;
+				speed = initialSpeed * 1.2f;
 				Debug.Log ("IN");
 			}
         }
@@ -243,13 +250,11 @@ public class Player : MonoBehaviour
     {
         if (coll.gameObject.tag == "DeathDetector")
         {
-            GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
-            Application.LoadLevel(Application.loadedLevel);
+			GameManager.Instance.GameRestart ();
         }
 		if (coll.gameObject.tag == "Obstacle")
         {
-            GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
-            Application.LoadLevel(Application.loadedLevel);
+			GameManager.Instance.GameRestart ();
         }
     }
 	

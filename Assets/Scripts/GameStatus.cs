@@ -59,7 +59,7 @@ public class GameStatus : MonoBehaviour {
 			}
 			
 		} else {
-			if (Camera.main.orthographicSize < 9){
+			if (Camera.main.orthographicSize < 8 && GameManager.Instance.score * 1.5 > 10){
 				Camera.main.orthographicSize += 1f * Time.deltaTime; 
 			}
 		}

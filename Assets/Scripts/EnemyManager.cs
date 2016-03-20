@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
 	private void Start(){
 		playerRef = GameObject.FindGameObjectWithTag ("Player");
 		if (spawnEnemyBerserker) {
-			InvokeRepeating("SpawnPrefabBerserker",2, 4.0f);
+			InvokeRepeating("SpawnPrefabBerserker",2, 3.75f);
 		}
 	}
 	

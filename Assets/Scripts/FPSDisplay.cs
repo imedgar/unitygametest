@@ -36,7 +36,7 @@ public class FPSDisplay : MonoBehaviour
 			if (Time.timeScale == 1) {
 				yield return new WaitForSeconds (0.1f);
 				count = (1 / Time.deltaTime);
-				label = "FPS :" + (Mathf.Round (count));
+				label = (Mathf.Round (count)) + " fps";
 			} else {
 				label = "Pause";
 			}
@@ -46,6 +46,6 @@ public class FPSDisplay : MonoBehaviour
 	
 	void OnGUI ()
 	{
-		GUI.Label (new Rect (450, 40, 100, 25), label);
+		GUI.Label (new Rect (5, 60, 100, 25), label);
 	}
 }

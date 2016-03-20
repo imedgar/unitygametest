@@ -164,17 +164,17 @@ public class TerrainGenerator : MonoBehaviour
 		
 		bool lastObstacle = false;
 		
-		for (int i = 0; i < 8; i++){
+		for (int i = 0; i < 12; i++){
 			if (i == 0){
 				ObjectPool.instance.GetObjectForType ("building_3_init", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
 			} 
-			else if (i == 7) {
+			else if (i == 11) {
 				ObjectPool.instance.GetObjectForType ("building_3_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
 			} 
 			else{
 				ObjectPool.instance.GetObjectForType ("building_3", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
 				int obstaclePc = Random.Range(1,10);
-				if (obstaclePc < 9 && obstaclePc > 5 && !lastObstacle){
+				if (obstaclePc > 5 && !lastObstacle){
 					ObjectPool.instance.GetObjectForType ("obstacle_1", true, new Vector3 (lastPosition, 4, -2), Quaternion.Euler (0, 0, 0));
 					Debug. Log ("Obstacle!!");
 					lastObstacle = true;

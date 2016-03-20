@@ -23,6 +23,16 @@ public class FollowPlayer : MonoBehaviour {
 			gameObject.transform.position = new Vector3(target.transform.position.x + xOffset, 
 			4 + yOffset, 
 			target.transform.position.z + zOffset);
+			if (GameManager.Instance.playerEnteredInnerZone && tag.Equals("MainCamera")){
+				if (xOffset > 4){
+					xOffset -= 1.5f * Time.deltaTime; 
+				}
+				
+			} else if (!GameManager.Instance.playerEnteredInnerZone && tag.Equals("MainCamera")){
+				if (xOffset < 7){
+					xOffset += 1f * Time.deltaTime; 
+				}
+			}
 
 		}
 	}

@@ -14,8 +14,7 @@ public class EnemyBerserker : Enemy {
 		switch (coll.gameObject.tag) {
 		case "Player":
 			if(GameManager.Instance.currentPlayerState != GameManager.PlayerStates.Shielded){
-				GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
-				Application.LoadLevel (Application.loadedLevel);
+				GameManager.Instance.GameRestart ();
 			} else {
 				KillEnemy ();
 			}

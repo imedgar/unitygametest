@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
 	public GameStates currentState;
 	public PlayerStates currentPlayerState;
 	
+	// Player stuff
 	public float score;
 	public int streetsPrepared;
 	public int playerTransition;
@@ -51,7 +52,8 @@ public class GameManager : MonoBehaviour {
 		currentState = GameStates.Mainmenu;
 		currentPlayerState = PlayerStates.Idle;
 		streetsPrepared = 0;
-		playerTransition = 0;
+		playerTransition = 0;	
+		playerEnteredInnerZone = true;
 		platform = Application.platform;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
 		_instance = this;
@@ -98,9 +100,20 @@ public class GameManager : MonoBehaviour {
         }
 		
 	}
+	
+	public void GameRestart (){
+		 if(score > PlayerPrefs.GetInt("highscore"))
+	     {
+	           PlayerPrefs.SetInt("highscore", (int) (score * 1.5f));
+	     }
+		GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
+		Application.LoadLevel (Application.loadedLevel);
+	}
+	
 	private void GameLogicBegin (){
 		GameManager.Instance.currentState = GameManager.GameStates.Roofs;
 		GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
 		canvas.SetActive(false);		
 	}
+
 }
