@@ -10,7 +10,7 @@ public class Score : MonoBehaviour {
 		while (true) {
 			if (Time.timeScale == 1 && GameManager.Instance.score > 0) {
 				yield return new WaitForSeconds (0.1f);
-				label = (Mathf.Round (GameManager.Instance.score * 1.5f)) + " m";
+				label = (Mathf.Round (GameManager.Instance.score)) + " m";
 			}
 			yield return new WaitForSeconds (0.1f);
 		}
@@ -20,5 +20,6 @@ public class Score : MonoBehaviour {
 	{
 		GUI.Label (new Rect (5, 20, 100, 25), label);
 		GUI.Label (new Rect (5, 40, 100, 25), PlayerPrefs.GetInt("highscore").ToString() + " max" );
+		//GUI.Label (new Rect (5, 0, 100, 25), GameManager.Instance.playerSpeed + " spd" );
 	}
 }

@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	// Player stuff
 	public float score;
 	public int streetsPrepared;
+	public float playerSpeed;
 	public int playerTransition;
 	public bool playerEnteredInnerZone;
 	
@@ -104,7 +105,7 @@ public class GameManager : MonoBehaviour {
 	public void GameRestart (){
 		 if(score > PlayerPrefs.GetInt("highscore"))
 	     {
-	           PlayerPrefs.SetInt("highscore", (int) (score * 1.5f));
+	           PlayerPrefs.SetInt("highscore", (int) score);
 	     }
 		GameManager.Instance.currentState = GameManager.GameStates.Mainmenu;
 		Application.LoadLevel (Application.loadedLevel);

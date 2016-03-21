@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     float speed;
     private float initialSpeed;
 	private float speedRecorder;
+	private float speedCap;
     float acceleration;
     [SerializeField]
     float jumpForce;
@@ -45,7 +46,8 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         shield.SetActive(false);
-        acceleration = 0.001f;
+        acceleration = 0.002f;
+		speedCap = 11.5f;
         initialSpeed = speed;
 		speedRecorder = speed;
     }
@@ -94,7 +96,8 @@ public class Player : MonoBehaviour
 						//platformControllerActions(PlayerActions.BEND);
 
                         // Update score
-                        GameManager.Instance.score = transform.position.x;
+                        GameManager.Instance.score = transform.position.x * 1.5f;
+						GameManager.Instance.playerSpeed = speed;
                     }
                     break;
                 case GameManager.GameStates.Street:
@@ -170,7 +173,9 @@ public class Player : MonoBehaviour
         if (direction.Equals(PlayerActions.MOVE_FORWARD))
         {
             transform.Translate(Vector3.right * speed * Time.deltaTime);
-            speed += acceleration;
+			if (speed < speedCap){
+            	speed += acceleration;
+			}
         }
     }
 	
@@ -232,15 +237,17 @@ public class Player : MonoBehaviour
         {
 			if(GameManager.Instance.playerEnteredInnerZone){
 				GameManager.Instance.playerEnteredInnerZone = false;
-				if(Time.deltaTime > 3f){
-					speed = speedRecorder * 0.9f;
+				if(speed > 8.2f){
+					speed = speedRecorder;
 				}
 				Debug.Log ("OUT");
 			}
 			else {
 				GameManager.Instance.playerEnteredInnerZone = true;
 				speedRecorder = speed;
-				speed = initialSpeed * 1.2f;
+				if(speed > initialSpeed * 1.2f){
+					speed = initialSpeed * 1.2f;
+				}
 				Debug.Log ("IN");
 			}
         }

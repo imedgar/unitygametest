@@ -46,6 +46,6 @@ public class FPSDisplay : MonoBehaviour
 	
 	void OnGUI ()
 	{
-		GUI.Label (new Rect (5, 60, 100, 25), label);
+		GUI.Label (new Rect (450, 20, 100, 25), label);
 	}
 }

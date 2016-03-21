@@ -15,8 +15,8 @@ public class TerrainGenerator : MonoBehaviour
 	public float spawnYPos = 0.0f;
     public float minDistanceBetweenBuildings;
     public float maxDistanceBetweenBuildings;
-    public int minHighBuildings;
-    public int maxHighBuildings;
+    public float minHighBuildings;
+    public float maxHighBuildings;
 
     private float randomTerrain;
     private int lastBuilding;
