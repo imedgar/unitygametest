@@ -103,7 +103,8 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void GameRestart (){
-		 if(score > PlayerPrefs.GetInt("highscore"))
+        PlayerPrefs.SetInt("lastscore", (int)score);
+        if (score > PlayerPrefs.GetInt("highscore"))
 	     {
 	           PlayerPrefs.SetInt("highscore", (int) score);
 	     }
