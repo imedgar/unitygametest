@@ -81,23 +81,23 @@ namespace Gamestrap
 
         public void FacebookClick()
         {
-            Application.OpenURL("https://www.facebook.com/gamestrapui/");
+            Application.OpenURL("https://es.wikipedia.org/wiki/Ornithorhynchus_anatinus");
         }
 
         public void TwitterClick()
         {
-            Application.OpenURL("https://twitter.com/EmeralDigEnt");
+            Application.OpenURL("https://media.tumblr.com/tumblr_m4g45bPfrr1r0y3uu.gif");
 
         }
 
         public void YoutubeClick()
         {
-            Application.OpenURL("https://www.youtube.com/channel/UC8b_9eMveC6W0hl5RJkCvyQ");
+            Application.OpenURL("https://coubsecure-a.akamaihd.net/get/bucket:32.11/p/coub/simple/cw_image/d85f07af7f6/f09c720f2dc6ef8db429b/cotd_email_1409151304_1381571232_00026.jpg");
         }
 
         public void WebsiteClick()
         {
-            Application.OpenURL("http://gamestrapui.emerald-digital.com");
+            Application.OpenURL("http://www.google.com");
         }
         #endregion
 
