@@ -15,6 +15,10 @@ namespace Gamestrap
 
         public Text notificationText;
         private Animator notificationAnimator;
+		
+		// Canvas Ref
+		GameObject canvas;
+		
         public void Start()
         {
             //Adds events to the Toggle buttons through code since
@@ -23,12 +27,18 @@ namespace Gamestrap
             musicToggle.onValueChanged.AddListener(ToggleMusic);
 
             notificationAnimator = notificationText.GetComponent<Animator>();
+			
+			canvas = GameObject.FindGameObjectWithTag ("UIPanel");
         }
 
         #region Event Methods Called from the UI
         public void PlayClick()
         {
-            GSAppExampleControl.Instance.LoadScene(ESceneNames.Levels);
+            //GSAppExampleControl.Instance.LoadScene(ESceneNames.Levels);
+			// Activate game
+            GameManager.Instance.currentState = GameManager.GameStates.Roofs;
+			GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Running;
+			canvas.SetActive(false);
         }
 
         public void AchievementsClick()

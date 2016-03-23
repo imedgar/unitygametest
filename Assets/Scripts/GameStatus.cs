@@ -64,4 +64,8 @@ public class GameStatus : MonoBehaviour {
 			}
 		}
 	}
+	public void StartGame() {
+		// Activate game
+        GameManager.Instance.ActiveGameLogic();
+	}
 }

@@ -18,9 +18,11 @@ public class Score : MonoBehaviour {
 	
 	void OnGUI ()
 	{
-        GUI.Label(new Rect(5, 0, 100, 25), PlayerPrefs.GetInt("lastscore").ToString() + " last");
-        GUI.Label(new Rect (5, 20, 100, 25), PlayerPrefs.GetInt("highscore").ToString() + " max" );
-        GUI.Label(new Rect(5, 40, 100, 25), currentScore);
-        //GUI.Label (new Rect (5, 0, 100, 25), GameManager.Instance.playerSpeed + " spd" );
+		if (GameManager.Instance.CanStartGameLogic()){
+	        GUI.Label(new Rect(5, 0, 100, 25), PlayerPrefs.GetInt("lastscore").ToString() + " last");
+	        GUI.Label(new Rect (5, 20, 100, 25), PlayerPrefs.GetInt("highscore").ToString() + " max" );
+	        GUI.Label(new Rect(5, 40, 100, 25), currentScore);
+	        //GUI.Label (new Rect (5, 0, 100, 25), GameManager.Instance.playerSpeed + " spd" );
+		}
     }
 }
