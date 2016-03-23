@@ -108,10 +108,6 @@ public class Player : MonoBehaviour
                     break;
             }
         }
-        else {
-			// Activate game
-            GameManager.Instance.ActiveGameLogic();
-        }
     }
 
     private void platformControllerActions(PlayerActions action)
