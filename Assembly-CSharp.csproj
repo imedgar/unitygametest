@@ -45,6 +45,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Gamestrap UI\Effects\GradientEffect.cs" />
+     <Compile Include="Assets\Gamestrap UI\Effects\ShadowEffect.cs" />
+     <Compile Include="Assets\Gamestrap UI\Examples\Complete Project\Global\Scripts\ESceneNames.cs" />
+     <Compile Include="Assets\Gamestrap UI\Examples\Complete Project\Global\Scripts\GSAppExampleControl.cs" />
+     <Compile Include="Assets\Gamestrap UI\Examples\Complete Project\Global\Scripts\SceneTransitionsButton.cs" />
+     <Compile Include="Assets\Gamestrap UI\Examples\Complete Project\Screens\Gameplay\GameplayUI.cs" />
+     <Compile Include="Assets\Gamestrap UI\Examples\Complete Project\Screens\Levels\LevelsControl.cs" />
+     <Compile Include="Assets\Gamestrap UI\Examples\Complete Project\Screens\Main Menu\MainMenuControl.cs" />
+     <Compile Include="Assets\Gamestrap UI\Helper Scripts\ButtonShowHide.cs" />
+     <Compile Include="Assets\Gamestrap UI\Helper Scripts\ToggleButtonIcon.cs" />
      <Compile Include="Assets\Scripts\DeathDetector.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyAir.cs" />
@@ -61,6 +71,16 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
+     <None Include="Assets\Gamestrap UI\Fonts\ubuntu\UBUNTU FONT LICENCE.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\Bebas\Flat-it License.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\Monospace\README.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\Basis33\LICENSE.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\PixelFJ8pt1\peace,...txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\Lato\SIL Open Font License.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\OpenSans\LICENSE.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\Basis33\README.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\Polaris\FontInfo.txt" />
+     <None Include="Assets\Gamestrap UI\Fonts\Bigfish\FontInfo.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
