@@ -1,12 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Gamestrap UI\Examples\Complete Project\Screens\Gameplay\GameplayUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TerrainGenerator.cs">
     <Files>
-      <File FileName="Assets\Gamestrap UI\Examples\Complete Project\Screens\Gameplay\GameplayUI.cs" Line="34" Column="3" />
-      <File FileName="Assets\Scripts\Score.cs" Line="6" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Gamestrap UI\Examples\Complete Project\Screens\Main Menu\MainMenuControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player.cs" Line="55" Column="12" />
+      <File FileName="Assets\Scripts\TerrainGenerator.cs" Line="121" Column="11" />
+      <File FileName="Assets\Scripts\ObjectPool.cs" Line="20" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
