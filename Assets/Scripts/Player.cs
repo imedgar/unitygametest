@@ -265,7 +265,7 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         hit = Physics2D.Raycast(transform.position, Vector2.down, 0.65f, 1 << LayerMask.NameToLayer("Ground"));
-        if (hit)
+        if (hit && !hit.collider.isTrigger)
         {
             if (hit.collider.tag == "Ground" || hit.collider.tag == "Street" || hit.collider.tag == "InnerZone")
             {
