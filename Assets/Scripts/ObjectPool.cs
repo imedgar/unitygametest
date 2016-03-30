@@ -113,14 +113,27 @@ public class ObjectPool : MonoBehaviour
 		//If we have gotten here either there was no object of the specified type or non were left in the pool with onlyPooled set to true
 		return null;
 	}
-	
-	/// <summary>
-	/// Pools the object specified.  Will not be pooled if there is no prefab of that type.
-	/// </summary>
-	/// <param name='obj'>
-	/// Object to be pooled.
-	/// </param>
-	public void PoolObject ( GameObject obj )
+
+    public float GetObjectSize(string objectType)
+    {
+        for (int i = 0; i < objectPrefabs.Length; i++)
+        {
+            GameObject prefab = objectPrefabs[i];
+            if (prefab.name == objectType)
+            {
+                return prefab.GetComponent<BoxCollider2D>().size.x;
+            }
+        }
+        return 0f;
+    }
+
+    /// <summary>
+    /// Pools the object specified.  Will not be pooled if there is no prefab of that type.
+    /// </summary>
+    /// <param name='obj'>
+    /// Object to be pooled.
+    /// </param>
+    public void PoolObject ( GameObject obj )
 	{
 		for ( int i=0; i<objectPrefabs.Length; i++)
 		{

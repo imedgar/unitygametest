@@ -108,29 +108,92 @@ public class TerrainGenerator : MonoBehaviour
 	{
 		// Roofs algorithm 
 		randomTerrain = Random.Range(1,10);
-		
-		randomY = Random.Range (1,10);
-		if (randomY <= 5) {
-			spawnYRandom = spawnYPos + minHighBuildings;
-		}
-		else{
-			spawnYRandom = spawnYPos + maxHighBuildings;
-		}
-		
-        if (randomTerrain <= 3) {
-			ObjectPool.instance.GetObjectForType ("Base_Pequena", true, new Vector3 (lastPosition, spawnYRandom, -1), Quaternion.Euler (0, 0, 0));
+        string currentBuilding = "";
+        randomY = Random.Range(1, 10);
+        float lastBuildingPosition;
+
+        if (randomY <= 5)
+        {
+            spawnYRandom = spawnYPos + minHighBuildings;
+        }
+        else {
+            spawnYRandom = spawnYPos + maxHighBuildings;
+        }
+
+        if (randomTerrain <= 3)
+        {
+            currentBuilding = "Base_Pequena";
+            ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
             lastBuilding = 0;
-		} else if (randomTerrain > 3 && randomTerrain <= 6){
-			ObjectPool.instance.GetObjectForType ("Base_Mediana", true, new Vector3 (lastPosition, spawnYRandom, -1), Quaternion.Euler (0, 0, 0));
-			lastBuilding = 1;
-		}
-		else{
-			ObjectPool.instance.GetObjectForType ("Base_Larga", true, new Vector3 (lastPosition, spawnYRandom, -1), Quaternion.Euler (0, 0, 0));
-			lastBuilding = 2;
-		}
-		
-		// script is now ready to spawn more terrain
-		canSpawnRoofs = true;
+        }
+        else if (randomTerrain > 3 && randomTerrain <= 6)
+        {
+            currentBuilding = "Base_Mediana";
+            ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
+            lastBuilding = 1;
+        }
+        else if (randomTerrain > 6 && randomTerrain <= 10)
+        {
+            currentBuilding = "Base_Larga";
+            ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
+            lastBuilding = 2;
+        }
+
+        switch (lastBuilding) {
+            case 0: // ultimo pequeño
+                if (currentBuilding.Equals("Base_Pequena")) { // pequeña pequeña
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Pequena");
+                    lastPosition = lastPosition + ( lastBuildingPosition * 1.5f );
+                }
+                else if (currentBuilding.Equals("Base_Mediana")) { // pequeña mediana
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Mediana");
+                    lastPosition = lastPosition + (lastBuildingPosition * 3);
+                }
+                else if (currentBuilding.Equals("Base_Larga")) { // pequeña grande
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Larga");
+                    lastPosition = lastPosition + (lastBuildingPosition * 10);
+                }
+                break;
+            case 1: // ultimo mediano
+                if (currentBuilding.Equals("Base_Pequena"))
+                { // mediano pequeña
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Pequena");
+                    lastPosition = lastPosition + lastBuildingPosition;
+                }
+                else if (currentBuilding.Equals("Base_Mediana"))
+                { // mediano mediana
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Mediana");
+                    lastPosition = lastPosition + lastBuildingPosition;
+                }
+                else if (currentBuilding.Equals("Base_Larga"))
+                { // mediano grande
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Larga");
+                    lastPosition = lastPosition + (lastBuildingPosition * 2);
+                }
+                break;
+            case 2: // ultimo grande
+                if (currentBuilding.Equals("Base_Pequena"))
+                { // grande pequeña
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Pequena");
+                    lastPosition = lastPosition + (lastBuildingPosition * 4);
+                }
+                else if (currentBuilding.Equals("Base_Mediana"))
+                { // grande mediana
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Mediana");
+                    lastPosition = lastPosition + (lastBuildingPosition * 3);
+                }
+                else if (currentBuilding.Equals("Base_Larga"))
+                { // grande grande
+                    lastBuildingPosition = ObjectPool.instance.GetObjectSize("Base_Larga");
+                    lastPosition = lastPosition + (lastBuildingPosition * 0.5f);
+                }
+                break;
+            default:
+                break;
+        }
+
+        // script is now ready to spawn more terrain
+        canSpawnRoofs = true;
 	}
 	
 	// Concept 
