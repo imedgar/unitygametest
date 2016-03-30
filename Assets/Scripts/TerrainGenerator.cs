@@ -194,34 +194,34 @@ public class TerrainGenerator : MonoBehaviour
 		
 		// Check distance from last building
 		if (lastBuildingHeight == 0) {
-			lastPosition += minDistanceBetweenBuildings;
+			lastPosition += ( buildingSize / 2 ) + minDistanceBetweenBuildings;
 		}
 		else {
-			lastPosition += maxDistanceBetweenBuildings;
+			lastPosition += ( buildingSize / 2 ) + maxDistanceBetweenBuildings;
 		}
 		
 		bool lastObstacle = false;
 		
-		for (int i = 0; i < 12; i++){
+		for (int i = 0; i < 10; i++){
 			if (i == 0){
-				buildingSize = ObjectPool.instance.GetObjectSize ("building_3_init");
+				buildingSize = ObjectPool.instance.GetObjectSize ("Inicio_Interior_prueba");
 				lastPosition += buildingSize / 2;
-				ObjectPool.instance.GetObjectForType ("building_3_init", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+				ObjectPool.instance.GetObjectForType ("Inicio_Interior_prueba", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
 				lastPosition += buildingSize / 2;
 			} 
-			else if (i == 11) {
-				buildingSize = ObjectPool.instance.GetObjectSize ("building_3_final");
+			else if (i == 9) {
+				buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque_final");
 				lastPosition += buildingSize / 2;				
-				ObjectPool.instance.GetObjectForType ("building_3_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+				ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
 				lastPosition += buildingSize / 2;
 			} 
 			else{
-				buildingSize = ObjectPool.instance.GetObjectSize ("building_3");
+				buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque medio");
 				lastPosition += buildingSize / 2;
-				ObjectPool.instance.GetObjectForType ("building_3", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
+				ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque medio", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
 				int obstaclePc = Random.Range(1,10);
 				if (obstaclePc > 5 && !lastObstacle){
-					ObjectPool.instance.GetObjectForType ("obstacle_1", true, new Vector3 (lastPosition, 4, -2), Quaternion.Euler (0, 0, 0));
+					ObjectPool.instance.GetObjectForType ("obstaculo", true, new Vector3 (lastPosition, 2.5f, -2), Quaternion.Euler (0, 0, 0));
 					Debug. Log ("Obstacle!!");
 					lastObstacle = true;
 				}

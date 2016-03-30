@@ -14,7 +14,7 @@ public class FarToPool : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if ((camRef.transform.position.x) - (gameObject.transform.position.x + 0.1) >= 25)
+		if ((camRef.transform.position.x) - (gameObject.transform.position.x + 0.1) >= 35)
 		{
 			BacktoPool();
 		}
