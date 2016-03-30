@@ -8,6 +8,7 @@ public class TerrainGenerator : MonoBehaviour
 	
 	// starting position for terrain, number found from tweaking in the editor
 	public float startSpawnPosition = 6.0f;
+	private bool firstTime = true;
 	// y position that all terrain will be spawned
 	// my terrain is all joined at the same level
 	// you can change this if here and the spawn method
@@ -17,9 +18,12 @@ public class TerrainGenerator : MonoBehaviour
     public float maxDistanceBetweenBuildings;
     public float minHighBuildings;
     public float maxHighBuildings;
-
+	
+	private string currentBuilding;
+    private float buildingSize;
+	
     private float randomTerrain;
-    private int lastBuilding;
+	private int lastBuildingHeight;
 	
 	// keep track of the last position terrain was generated
 	private float lastPosition;
@@ -108,29 +112,62 @@ public class TerrainGenerator : MonoBehaviour
 	{
 		// Roofs algorithm 
 		randomTerrain = Random.Range(1,10);
+        randomY = Random.Range(1, 10);
 		
-		randomY = Random.Range (1,10);
-		if (randomY <= 5) {
-			spawnYRandom = spawnYPos + minHighBuildings;
-		}
+		if (lastBuildingHeight == 0 && randomY > 5) {
+			if (!firstTime){
+				lastPosition += ( buildingSize / 2 ) + minDistanceBetweenBuildings;
+			} else { firstTime = false; }
+		} 
 		else{
-			spawnYRandom = spawnYPos + maxHighBuildings;
+			if (!firstTime){
+			lastPosition += ( buildingSize / 2 ) + maxDistanceBetweenBuildings;
+			} else { firstTime = false; }
 		}
 		
-        if (randomTerrain <= 3) {
-			ObjectPool.instance.GetObjectForType ("Base_Pequena", true, new Vector3 (lastPosition, spawnYRandom, -1), Quaternion.Euler (0, 0, 0));
-            lastBuilding = 0;
-		} else if (randomTerrain > 3 && randomTerrain <= 6){
-			ObjectPool.instance.GetObjectForType ("Base_Mediana", true, new Vector3 (lastPosition, spawnYRandom, -1), Quaternion.Euler (0, 0, 0));
-			lastBuilding = 1;
-		}
-		else{
-			ObjectPool.instance.GetObjectForType ("Base_Larga", true, new Vector3 (lastPosition, spawnYRandom, -1), Quaternion.Euler (0, 0, 0));
-			lastBuilding = 2;
-		}
+		// Roofs Height random
 		
-		// script is now ready to spawn more terrain
-		canSpawnRoofs = true;
+        if (randomY <= 5)
+        {
+            spawnYRandom = spawnYPos + minHighBuildings;
+        }
+        else {
+            spawnYRandom = spawnYPos + maxHighBuildings;;
+        }
+		
+			
+        if (randomTerrain <= 3)
+        {
+            currentBuilding = "Base_Pequena";
+			buildingSize = ObjectPool.instance.GetObjectSize (currentBuilding);
+			lastPosition += buildingSize / 2;
+            ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
+        }
+        else if (randomTerrain > 3 && randomTerrain <= 6)
+        {
+            currentBuilding = "Base_Mediana";
+			buildingSize = ObjectPool.instance.GetObjectSize (currentBuilding);
+			lastPosition += buildingSize / 2;
+            ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
+        }
+        else if (randomTerrain > 6 && randomTerrain <= 10)
+        {
+            currentBuilding = "Base_Larga";
+			buildingSize = ObjectPool.instance.GetObjectSize (currentBuilding);
+			lastPosition += buildingSize / 2;
+            ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
+        }
+
+		if (randomY <= 5)
+        {
+			lastBuildingHeight = 0;
+        }
+        else {
+			lastBuildingHeight = 1;
+        }
+
+        // script is now ready to spawn more terrain
+        canSpawnRoofs = true;
 	}
 	
 	// Concept 
@@ -156,37 +193,50 @@ public class TerrainGenerator : MonoBehaviour
 		// Inners algorithm 
 		
 		// Check distance from last building
-		if (lastBuilding == 0) {
-			lastPosition += 9f;
+		if (lastBuildingHeight == 0) {
+			lastPosition += minDistanceBetweenBuildings;
 		}
 		else {
-			lastPosition += 12f;
+			lastPosition += maxDistanceBetweenBuildings;
 		}
 		
 		bool lastObstacle = false;
 		
 		for (int i = 0; i < 12; i++){
 			if (i == 0){
+				buildingSize = ObjectPool.instance.GetObjectSize ("building_3_init");
+				lastPosition += buildingSize / 2;
 				ObjectPool.instance.GetObjectForType ("building_3_init", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+				lastPosition += buildingSize / 2;
 			} 
 			else if (i == 11) {
+				buildingSize = ObjectPool.instance.GetObjectSize ("building_3_final");
+				lastPosition += buildingSize / 2;				
 				ObjectPool.instance.GetObjectForType ("building_3_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+				lastPosition += buildingSize / 2;
 			} 
 			else{
+				buildingSize = ObjectPool.instance.GetObjectSize ("building_3");
+				lastPosition += buildingSize / 2;
 				ObjectPool.instance.GetObjectForType ("building_3", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
 				int obstaclePc = Random.Range(1,10);
 				if (obstaclePc > 5 && !lastObstacle){
 					ObjectPool.instance.GetObjectForType ("obstacle_1", true, new Vector3 (lastPosition, 4, -2), Quaternion.Euler (0, 0, 0));
 					Debug. Log ("Obstacle!!");
 					lastObstacle = true;
-				} else {
+				}
+				else {
 					lastObstacle = false;
 				}
+				lastPosition += buildingSize / 2;
 			}
-			lastPosition = lastPosition + 4.7f;
 		}
-		lastPosition -= 5f;
+
 		GameManager.Instance.currentState = GameManager.GameStates.Roofs;
 	}	
-
+	
+	void spaceBetweenBuildings (){
+		
+	}
+	
 }
