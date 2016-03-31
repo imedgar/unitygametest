@@ -20,6 +20,10 @@ public class GameStatus : MonoBehaviour {
         {
             score++;
             GameManager.Instance.score = (int)(score * 0.2);
+            if (GameManager.Instance.naturalWorldSpeed < GameManager.Instance.naturalWorldSpeedCap)
+            {
+                GameManager.Instance.naturalWorldSpeed += GameManager.Instance.naturalWorldAcceleration;
+            }
         }
 
         ToInnerZone ();
