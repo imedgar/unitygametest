@@ -48,8 +48,8 @@ public class Player : MonoBehaviour
         shield.SetActive(false);
         acceleration = 0.002f;
 		speedCap = 11.5f;
-        initialSpeed = speed;
-		speedRecorder = speed;
+        initialSpeed = GameManager.Instance.naturalWorldSpeed;
+		speedRecorder = GameManager.Instance.naturalWorldSpeed;
     }
 
     void Update()
@@ -93,10 +93,10 @@ public class Player : MonoBehaviour
                         }
 						// Other actions
                         platformControllerActions(PlayerActions.SHIELD);
-						//platformControllerActions(PlayerActions.BEND);
+                        //platformControllerActions(PlayerActions.BEND);
 
                         // Update score
-                        GameManager.Instance.score = transform.position.x * 1.5f;
+
 						GameManager.Instance.playerSpeed = speed;
                     }
                     break;
@@ -233,18 +233,16 @@ public class Player : MonoBehaviour
         {
 			if(GameManager.Instance.playerEnteredInnerZone){
 				GameManager.Instance.playerEnteredInnerZone = false;
-				if(speed > 8.2f){
-					speed = speedRecorder;
+				if(GameManager.Instance.naturalWorldSpeed > 8.2f){
+                    GameManager.Instance.naturalWorldSpeed = speedRecorder;
 				}
-				Debug.Log ("OUT");
-			}
+				}
 			else {
 				GameManager.Instance.playerEnteredInnerZone = true;
-				speedRecorder = speed;
-				if(speed > initialSpeed * 1.2f){
-					speed = initialSpeed * 1.2f;
+				speedRecorder = GameManager.Instance.naturalWorldSpeed;
+				if(GameManager.Instance.naturalWorldSpeed > initialSpeed * 1.2f){
+                    GameManager.Instance.naturalWorldSpeed = initialSpeed * 1.2f;
 				}
-				Debug.Log ("IN");
 			}
         }
     }

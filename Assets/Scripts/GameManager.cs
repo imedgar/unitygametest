@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour {
 	public GameStates currentState;
 	public PlayerStates currentPlayerState;
     public float naturalWorldSpeed;
-	
-	// Player stuff
-	public float score;
+    public float naturalWorldSpeedCap;
+    public float naturalWorldAcceleration;
+
+// Player stuff
+public float score;
 	public int streetsPrepared;
 	public float playerSpeed;
 	public int playerTransition;
@@ -56,6 +58,8 @@ public class GameManager : MonoBehaviour {
 		streetsPrepared = 0;
 		playerTransition = 0;
         naturalWorldSpeed = 9f;
+        naturalWorldAcceleration = 0.002f;
+        naturalWorldSpeedCap = 11.5f;
         playerEnteredInnerZone = true;
 		platform = Application.platform;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");

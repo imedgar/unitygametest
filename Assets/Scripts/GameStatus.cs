@@ -8,7 +8,7 @@ public class GameStatus : MonoBehaviour {
     float timeStampInnerZone;
 	[SerializeField]
     float innerZoneCooldown;
-	
+    int score = 0;
 	// Use this for initialization
 	void Start () {
 		deathDetectorRef = GameObject.FindGameObjectWithTag ("DeathDetector");
@@ -16,8 +16,13 @@ public class GameStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		ToInnerZone ();
+        if (GameManager.Instance.CanStartGameLogic())
+        {
+            score++;
+            GameManager.Instance.score = (int)(score * 0.2);
+        }
+
+        ToInnerZone ();
 		InnerZoom ();
 
 		// Streets mode
@@ -54,13 +59,14 @@ public class GameStatus : MonoBehaviour {
 	
 	void InnerZoom () {
 		if (GameManager.Instance.playerEnteredInnerZone){
-			if (Camera.main.orthographicSize > 7){
-				Camera.main.orthographicSize -= 1f * Time.deltaTime; 
+            
+            if (Camera.main.orthographicSize > 7){
+                Camera.main.orthographicSize -= 1f * Time.deltaTime; 
 			}
 			
 		} else {
-			if (Camera.main.orthographicSize < 8 && GameManager.Instance.score * 1.5 > 10){
-				Camera.main.orthographicSize += 1f * Time.deltaTime; 
+            if (Camera.main.orthographicSize < 8 && GameManager.Instance.score * 1.5 > 10){
+                Camera.main.orthographicSize += 1f * Time.deltaTime; 
 			}
 		}
 	}

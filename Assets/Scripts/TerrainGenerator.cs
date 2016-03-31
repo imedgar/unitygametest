@@ -93,7 +93,6 @@ public class TerrainGenerator : MonoBehaviour
 
                 if (lastBuildingRef.transform.position.x - spawnRange <= spawnRange && canSpawnRoofs == true)
                 {
-                    Debug.Log(lastBuildingRef.transform.position.x + " " + (lastBuildingRef.transform.position.x - spawnRange) + " " + spawnRange);
                     // turn off spawning until ready to spawn again
                     canSpawnRoofs = false;
 					// SpawnRoofs is called and passed the randomchoice number
@@ -102,7 +101,7 @@ public class TerrainGenerator : MonoBehaviour
                 break;
 			case GameManager.GameStates.InnerZone:
                 //if (cam.transform.position.x >= lastPosition - spawnRange && canSpawnRoofs == true)
-                if (lastBuildingRef.transform.position.x - (cam.transform.position.x + spawnRange) <= spawnRange && canSpawnStreets == true)
+                if (lastBuildingRef.transform.position.x - spawnRange <= spawnRange && canSpawnStreets == true)
                 {
                     // turn off spawning until ready to spawn again
                     canSpawnStreets = false;
