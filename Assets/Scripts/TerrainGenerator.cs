@@ -22,9 +22,11 @@ public class TerrainGenerator : MonoBehaviour
 	
     private float randomTerrain;
 	private int lastBuildingHeight;
-	
-	// keep track of the last position terrain was generated
-	private float lastPosition;
+
+    public int spawnRange = 16;
+
+    // keep track of the last position terrain was generated
+    private float lastPosition;
 	private int randomY; 
 	private float spawnYRandom;
 	
@@ -38,9 +40,8 @@ public class TerrainGenerator : MonoBehaviour
 	
 	public float spawnInnerYPos;
 	private float innerlastPos;
+    private int i;
 
-	public int spawnRange = 16;
-	
 	// camera reference
 	private GameObject cam;
     public GameObject lastBuildingRef;
@@ -141,7 +142,13 @@ public class TerrainGenerator : MonoBehaviour
 			//	}			
             //    break;
 			case GameManager.GameStates.InnerZone:
-				SpawnInners ();
+                //if (cam.transform.position.x >= lastPosition - spawnRange && canSpawnRoofs == true)
+                if (lastBuildingRef.transform.position.x - (cam.transform.position.x + spawnRange) <= spawnRange && canSpawnStreets == true)
+                {
+                    // turn off spawning until ready to spawn again
+                    canSpawnStreets = false;
+                    SpawnInners();
+                }
 				break;
             default:
                 break;
@@ -237,43 +244,43 @@ public class TerrainGenerator : MonoBehaviour
 		
 		// Check distance from last building
 		if (lastBuildingHeight == 0) {
-            lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 ) + minDistanceBetweenBuildings;
+            lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 );
 		}
 		else {
-            lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 ) + maxDistanceBetweenBuildings;
+            lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 );
 		}
 		
 		bool lastObstacle = false;
 		
-		for (int i = 0; i < 10; i++){
-			if (i == 0){
-				buildingSize = ObjectPool.instance.GetObjectSize ("Inicio_Interior_prueba");
-				lastPosition += buildingSize / 2;
-                lastBuildingRef = ObjectPool.instance.GetObjectForType ("Inicio_Interior_prueba", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
-				lastPosition += buildingSize / 2;
-			} 
-			else if (i == 9) {
-				buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque_final");
-				lastPosition += buildingSize / 2;
-                lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
-			} 
-			else{
-				buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque medio");
-				lastPosition += buildingSize / 2;
-                lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque medio", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
-				int obstaclePc = Random.Range(1,10);
-				if (obstaclePc > 4 && !lastObstacle){
-					ObjectPool.instance.GetObjectForType ("obstaculo", true, new Vector3 (lastPosition, 2.66f, -2), Quaternion.Euler (0, 0, 0));
-					lastObstacle = true;
-				}
-				else {
-					lastObstacle = false;
-				}
-				lastPosition += buildingSize / 2;
+		if (i == 0){
+			buildingSize = ObjectPool.instance.GetObjectSize ("Inicio_Interior_prueba");
+			lastPosition += buildingSize / 2;
+            lastBuildingRef = ObjectPool.instance.GetObjectForType ("Inicio_Interior_prueba", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+			lastPosition += buildingSize / 2;
+            i++;
+		} 
+		else if (i == 9) {
+			buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque_final");
+			lastPosition += buildingSize / 2;
+            lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
+            lastPosition += buildingSize / 2;
+            GameManager.Instance.currentState = GameManager.GameStates.Roofs;
+            i = 0;
+        } 
+		else{
+			buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque medio");
+			lastPosition += buildingSize / 2;
+            lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque medio", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
+			int obstaclePc = Random.Range(1,10);
+			if (obstaclePc > 4 && !lastObstacle){
+				ObjectPool.instance.GetObjectForType ("obstaculo", true, new Vector3 (lastPosition, 2.66f, -2), Quaternion.Euler (0, 0, 0));
+				lastObstacle = true;
 			}
+			else {
+				lastObstacle = false;
+			}		
 		}
-
-		GameManager.Instance.currentState = GameManager.GameStates.Roofs;
-	}	
+        canSpawnStreets = true;
+    }	
 
 }
