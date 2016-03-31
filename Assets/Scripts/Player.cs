@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
 	// Jump function
     void Jump()
     {
-        if (IsGrounded())
+        if (IsGrounded() && GameManager.Instance.score > 2)
         {
             //rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
