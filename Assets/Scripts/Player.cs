@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
                             platformControllerActions(PlayerActions.MOVE_BACKWARD);
                         }
                         else {
-                            Movement(PlayerActions.MOVE_FORWARD);
+                            //Movement(PlayerActions.MOVE_FORWARD);
                         }
 						// Other actions
                         platformControllerActions(PlayerActions.SHIELD);
@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
 	// Jump function
     void Jump()
     {
-        if (IsGrounded() && transform.position.x > -5)
+        if (IsGrounded())
         {
             //rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);

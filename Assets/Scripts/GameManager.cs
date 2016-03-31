@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameStates currentState;
 	public PlayerStates currentPlayerState;
+    public float naturalWorldSpeed;
 	
 	// Player stuff
 	public float score;
@@ -53,8 +54,9 @@ public class GameManager : MonoBehaviour {
 		currentState = GameStates.Mainmenu;
 		currentPlayerState = PlayerStates.Idle;
 		streetsPrepared = 0;
-		playerTransition = 0;	
-		playerEnteredInnerZone = true;
+		playerTransition = 0;
+        naturalWorldSpeed = 9f;
+        playerEnteredInnerZone = true;
 		platform = Application.platform;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
 		_instance = this;

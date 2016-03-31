@@ -37,7 +37,8 @@ abstract public class Enemy : MonoBehaviour {
 
 	// Movement
 	protected void FixedUpdate(){
-		Behaviour ("FixedUpdate", GameManager.Instance.currentState);
+        transform.Translate(Vector3.left * GameManager.Instance.naturalWorldSpeed * Time.deltaTime);
+        Behaviour ("FixedUpdate", GameManager.Instance.currentState);
 	}
 	
 	protected void OnCollisionEnter2D(Collision2D coll) {
