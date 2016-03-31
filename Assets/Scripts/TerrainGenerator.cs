@@ -4,8 +4,6 @@ using System.Collections;
 public class TerrainGenerator : MonoBehaviour
 {
 
-	public static TerrainGenerator instance;
-	
 	// starting position for terrain, number found from tweaking in the editor
 	public float startSpawnPosition = 6.0f;
 	private bool firstTime = true;
@@ -49,28 +47,69 @@ public class TerrainGenerator : MonoBehaviour
 	// used to check if terrain can be generated depending on the camera position and lastposition
 	private bool canSpawnRoofs = true;
 	private bool canSpawnStreets = true;
-	
-	void Awake ()
-	{
-		instance = this;
-	}
+    public Rect scissorRect = new Rect(0, 0, 1, 1);
 
-	
-	void Start()
+    void Start()
 	{
 		// make the lastposition start at start spawn position
 		lastPosition = startSpawnPosition;
 		// pair camera to camera reference
 		cam = GameObject.Find("Main Camera");
-	}
+        //StartCoroutine(CoroutineTerrain());
+        //InvokeRepeating("Behaviour", 0, 0.25f);
+    }
 	
 	void Update()
 	{
-		Behaviour (GameManager.Instance.currentState);
-	}
-	
-	protected void Behaviour(GameManager.GameStates currentGameState){
-        switch (currentGameState)
+		Behaviour ();
+        SetScissorRect (Camera.main, scissorRect);
+
+    }
+
+    public static void SetScissorRect(Camera cam, Rect r)
+    {
+        if (r.x < 0)
+        {
+            r.width += r.x;
+            r.x = 0;
+        }
+
+        if (r.y < 0)
+        {
+            r.height += r.y;
+            r.y = 0;
+        }
+
+        r.width = Mathf.Min(1 - r.x, r.width);
+        r.height = Mathf.Min(1 - r.y, r.height);
+
+        cam.rect = new Rect(0, 0, 1, 1);
+        cam.ResetProjectionMatrix();
+        Matrix4x4 m = cam.projectionMatrix;
+        cam.rect = r;
+        Matrix4x4 m1 = Matrix4x4.TRS(new Vector3(r.x, r.y, 0), Quaternion.identity, new Vector3(r.width, r.height, 1));
+        Matrix4x4 m2 = Matrix4x4.TRS(new Vector3((1 / r.width - 1), (1 / r.height - 1), 0), Quaternion.identity, new Vector3(1 / r.width, 1 / r.height, 1));
+        Matrix4x4 m3 = Matrix4x4.TRS(new Vector3(-r.x * 2 / r.width, -r.y * 2 / r.height, 0), Quaternion.identity, Vector3.one);
+        cam.projectionMatrix = m3 * m2 * m;
+    }
+
+    //IEnumerator CoroutineTerrain()
+    //{
+    //    GUI.depth = 2;
+    //    while (true)
+    //    {
+    //        if (Time.timeScale == 1)
+    //        {
+    //            yield return new WaitForSeconds(0.5f);
+    //            Behaviour();
+    //        }
+    //        yield return new WaitForSeconds(0.5f);
+    //    }
+    //}
+
+    protected void Behaviour(){
+
+        switch (GameManager.Instance.currentState)
         {
 			// if the camera is farther than the number last position minus 16 terrain is spawned
 			// a lesser number may make the terrain 'pop' into the scene too early
@@ -82,7 +121,7 @@ public class TerrainGenerator : MonoBehaviour
 					// turn off spawning until ready to spawn again
 					canSpawnRoofs = false;
 					// SpawnRoofs is called and passed the randomchoice number
-					SpawnRoofs(currentGameState);
+					SpawnRoofs(GameManager.Instance.currentState);
 				}
                 break;
             //case GameManager.GameStates.Street:
@@ -219,9 +258,8 @@ public class TerrainGenerator : MonoBehaviour
 				lastPosition += buildingSize / 2;
 				ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque medio", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
 				int obstaclePc = Random.Range(1,10);
-				if (obstaclePc > 5 && !lastObstacle){
+				if (obstaclePc > 4 && !lastObstacle){
 					ObjectPool.instance.GetObjectForType ("obstaculo", true, new Vector3 (lastPosition, 2.66f, -2), Quaternion.Euler (0, 0, 0));
-					Debug. Log ("Obstacle!!");
 					lastObstacle = true;
 				}
 				else {
@@ -233,9 +271,5 @@ public class TerrainGenerator : MonoBehaviour
 
 		GameManager.Instance.currentState = GameManager.GameStates.Roofs;
 	}	
-	
-	void spaceBetweenBuildings (){
-		
-	}
-	
+
 }
