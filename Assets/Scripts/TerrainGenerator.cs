@@ -49,7 +49,6 @@ public class TerrainGenerator : MonoBehaviour
 	// used to check if terrain can be generated depending on the camera position and lastposition
 	private bool canSpawnRoofs = true;
 	private bool canSpawnStreets = true;
-    public Rect scissorRect = new Rect(0, 0, 1, 1);
 
     void Start()
 	{
@@ -64,35 +63,6 @@ public class TerrainGenerator : MonoBehaviour
 	void Update()
 	{
 		Behaviour ();
-        SetScissorRect (Camera.main, scissorRect);
-
-    }
-
-    public static void SetScissorRect(Camera cam, Rect r)
-    {
-        if (r.x < 0)
-        {
-            r.width += r.x;
-            r.x = 0;
-        }
-
-        if (r.y < 0)
-        {
-            r.height += r.y;
-            r.y = 0;
-        }
-
-        r.width = Mathf.Min(1 - r.x, r.width);
-        r.height = Mathf.Min(1 - r.y, r.height);
-
-        cam.rect = new Rect(0, 0, 1, 1);
-        cam.ResetProjectionMatrix();
-        Matrix4x4 m = cam.projectionMatrix;
-        cam.rect = r;
-        Matrix4x4 m1 = Matrix4x4.TRS(new Vector3(r.x, r.y, 0), Quaternion.identity, new Vector3(r.width, r.height, 1));
-        Matrix4x4 m2 = Matrix4x4.TRS(new Vector3((1 / r.width - 1), (1 / r.height - 1), 0), Quaternion.identity, new Vector3(1 / r.width, 1 / r.height, 1));
-        Matrix4x4 m3 = Matrix4x4.TRS(new Vector3(-r.x * 2 / r.width, -r.y * 2 / r.height, 0), Quaternion.identity, Vector3.one);
-        cam.projectionMatrix = m3 * m2 * m;
     }
 
     //IEnumerator CoroutineTerrain()
@@ -120,27 +90,16 @@ public class TerrainGenerator : MonoBehaviour
             case GameManager.GameStates.Roofs:
 
                 //if (cam.transform.position.x >= lastPosition - spawnRange && canSpawnRoofs == true)
-                if (lastBuildingRef.transform.position.x - (cam.transform.position.x + spawnRange) <= spawnRange && canSpawnRoofs == true)
+
+                if (lastBuildingRef.transform.position.x - spawnRange <= spawnRange && canSpawnRoofs == true)
                 {
-					// turn off spawning until ready to spawn again
-					canSpawnRoofs = false;
+                    Debug.Log(lastBuildingRef.transform.position.x + " " + (lastBuildingRef.transform.position.x - spawnRange) + " " + spawnRange);
+                    // turn off spawning until ready to spawn again
+                    canSpawnRoofs = false;
 					// SpawnRoofs is called and passed the randomchoice number
 					SpawnRoofs();
 				}
                 break;
-            //case GameManager.GameStates.Street:
-			//	if (cam.transform.position.x >= streetlastPos - spawnRange && canSpawnStreets == true)
-			//	{
-			//		// turn off spawning until ready to spawn again
-			//		canSpawnRoofs = false;
-			//		// SpawnRoofs is called and passed the randomchoice number
-			//		SpawnRoofs(currentGameState);
-			//		// turn off spawning until ready to spawn again
-			//		canSpawnStreets = false;
-			//		// SpawnRoofs is called and passed the randomchoice number
-			//		SpawnStreets();
-			//	}			
-            //    break;
 			case GameManager.GameStates.InnerZone:
                 //if (cam.transform.position.x >= lastPosition - spawnRange && canSpawnRoofs == true)
                 if (lastBuildingRef.transform.position.x - (cam.transform.position.x + spawnRange) <= spawnRange && canSpawnStreets == true)
@@ -219,45 +178,30 @@ public class TerrainGenerator : MonoBehaviour
         canSpawnRoofs = true;
 
 	}
-	
-	// Concept 
-	//void SpawnStreets (){
-	//	
-	//	// Street
-	//	if (GameManager.Instance.streetsPrepared == 0){
-	//		streetlastPos += cam.transform.position.x - 20;
-	//	}
-	//	else{
-	//		streetlastPos += streetStartSpawnPos;
-	//	}
-	//	
-	//	ObjectPool.instance.GetObjectForType ("street_ground", true, new Vector3 (streetlastPos, streetSpawnYPos, 0), Quaternion.Euler (0, 0, 0));
-	//	// script is now ready to spawn more terrain
-	//	canSpawnStreets = true;
-	//	GameManager.Instance.streetsPrepared ++;
-	//}
-	
+		
 	// spawn inners
 	void SpawnInners ()
 	{
 		// Inners algorithm 
 		
-		// Check distance from last building
-		if (lastBuildingHeight == 0) {
-            lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 );
-		}
-		else {
-            lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 );
-		}
-		
+        lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 );
+
 		bool lastObstacle = false;
 		
 		if (i == 0){
-			buildingSize = ObjectPool.instance.GetObjectSize ("Inicio_Interior_prueba");
+            // Check distance from last building
+            if (lastBuildingHeight == 0 && i == 0)
+            {
+                lastPosition = lastBuildingRef.transform.position.x + (buildingSize / 2) + minDistanceBetweenBuildings;
+            }
+            else {
+                lastPosition = lastBuildingRef.transform.position.x + (buildingSize / 2) + maxDistanceBetweenBuildings;
+            }
+            buildingSize = ObjectPool.instance.GetObjectSize ("Inicio_Interior_prueba");
 			lastPosition += buildingSize / 2;
             lastBuildingRef = ObjectPool.instance.GetObjectForType ("Inicio_Interior_prueba", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
 			lastPosition += buildingSize / 2;
-            i++;
+            i+=1;
 		} 
 		else if (i == 9) {
 			buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque_final");
@@ -278,8 +222,9 @@ public class TerrainGenerator : MonoBehaviour
 			}
 			else {
 				lastObstacle = false;
-			}		
-		}
+			}
+            i += 1;
+        }
         canSpawnStreets = true;
     }	
 

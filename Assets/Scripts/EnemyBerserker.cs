@@ -30,6 +30,7 @@ public class EnemyBerserker : Enemy {
             {
                 case GameManager.GameStates.Mainmenu:
                     break;
+                case GameManager.GameStates.InnerZone:
                 case GameManager.GameStates.Roofs:
                     // Update Loop Stuff
                     if (whichUpdate.Equals("Update"))

@@ -75,7 +75,8 @@ abstract public class Enemy : MonoBehaviour {
 	protected bool IsGrounded(){
 		hit = Physics2D.Raycast(transform.position, Vector2.down, 0.65f, 1 << LayerMask.NameToLayer("Ground"));
         if (hit) {     
-			if(hit.collider.tag == "Ground"){
+			if(hit.collider.tag == "Ground" || hit.collider.tag == "InnerZone")
+            {
 				return true;
 			}
 			else {

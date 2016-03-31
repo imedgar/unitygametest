@@ -28,7 +28,6 @@ public class Parallax : MonoBehaviour {
 			gameObject.transform.position = new Vector3 (target.transform.position.x + 9, 
 			4 + 2 + offsetY, 
 			transform.position.z);
-
 		}
 		
 		if (GameManager.Instance.CanStartGameLogic())
@@ -38,7 +37,7 @@ public class Parallax : MonoBehaviour {
                 case GameManager.GameStates.Mainmenu:
                     break;
                 case GameManager.GameStates.Roofs:
-                case GameManager.GameStates.Street:
+                case GameManager.GameStates.InnerZone:
 					GetComponent<Renderer> ().material.mainTextureOffset = new Vector2 ((Time.time * velocity) % 1, 0);
                     break;
                 default:
