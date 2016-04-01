@@ -26,51 +26,31 @@ public class EnemyManager : MonoBehaviour
 			if (GameManager.Instance.currentState == GameManager.GameStates.Roofs){
 				spawnPositionX = ChumpRayBuilding();
 			}
-			else if (GameManager.Instance.currentState == GameManager.GameStates.Street){
-				spawnPositionX = (int) playerRef.transform.position.x + 50;
-			}
             if (spawnPositionX != 0)
             {
                 ObjectPool.instance.GetObjectForType("Berserker", true, new Vector3(spawnPositionX, 6, -2), Quaternion.Euler(0, 0, 0));
+				spawnPositionX = 0;
             }
 		}
 	}
 	
-	
-    void Behaviour(string whichUpdate, GameManager.GameStates currentGameState)
-    {
-        if (GameManager.Instance.CanStartGameLogic())
-        {
-            switch (currentGameState)
-            {
-                case GameManager.GameStates.Roofs:
-                    break;
-                case GameManager.GameStates.Street:
-                    break;
-		        case GameManager.GameStates.InnerZone:
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-	
 	private int ChumpRayBuilding (){
         
-		int positionX = 0;
+		int positionX;
 		int chumpRayX = (int) playerRef.transform.position.x + distanceToPlayerSpawn;
 
-		for (int i = chumpRayX; i < (chumpRayX + 50); i++ ){
+		for (int i = 25; i > 0; i-- ){
 			Vector2 chumpRayPosition = new Vector2(i, 10);
 			hit = Physics2D.Raycast(chumpRayPosition, Vector2.down, 200, 1 << LayerMask.NameToLayer("Ground"));
+			
 			if (hit) {
-	            if (hit.collider.tag == "Ground"){
+				if(hit.transform.tag == "Ground"){
 	                positionX = i;
-					break;
+					return positionX;
 				}
 			} 
 		}
-		return positionX;
+		return 0;
 	}
 
 }

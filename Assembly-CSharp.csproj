@@ -169,6 +169,7 @@
      <Compile Include="Assets\SVG Importer\Plugins\Utils\SVGShader.cs" />
      <Compile Include="Assets\SVG Importer\Plugins\Utils\SVGTransform2D.cs" />
      <Compile Include="Assets\SVG Importer\Plugins\Utils\SVGUtils.cs" />
+     <Compile Include="Assets\Scripts\AddObstacle.cs" />
      <Compile Include="Assets\Scripts\DeathDetector.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyAir.cs" />

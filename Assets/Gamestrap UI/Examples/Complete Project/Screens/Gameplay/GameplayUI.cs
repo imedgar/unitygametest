@@ -15,9 +15,11 @@ namespace Gamestrap
 		public Text highScore;
 		public Text lastScore;
 		public Text currentScore;
+		public Text speed;
 		
 		void Start (){
 			currentScore.enabled = false;
+			speed.enabled = false;
 			pauseButton.SetActive (false);
 		}
 		
@@ -51,6 +53,8 @@ namespace Gamestrap
 			if (GameManager.Instance.CanStartGameLogic() && GameManager.Instance.score > 0){
 				pauseButton.SetActive (true);
 				currentScore.enabled = true;
+				speed.enabled = (true);
+				speed.text = (Mathf.Round (GameManager.Instance.naturalWorldSpeed)) + " sp";
 				currentScore.text = (Mathf.Round (GameManager.Instance.score)) + " m";
 			}
 			lastScore.text = PlayerPrefs.GetInt("lastscore").ToString() + " last";

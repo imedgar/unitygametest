@@ -233,15 +233,15 @@ public class Player : MonoBehaviour
         {
 			if(GameManager.Instance.playerEnteredInnerZone){
 				GameManager.Instance.playerEnteredInnerZone = false;
-				if(GameManager.Instance.naturalWorldSpeed > 8.2f){
+				if(GameManager.Instance.naturalWorldSpeed > initialSpeed){
                     GameManager.Instance.naturalWorldSpeed = speedRecorder;
 				}
 				}
 			else {
 				GameManager.Instance.playerEnteredInnerZone = true;
 				speedRecorder = GameManager.Instance.naturalWorldSpeed;
-				if(GameManager.Instance.naturalWorldSpeed > initialSpeed * 1.2f){
-                    GameManager.Instance.naturalWorldSpeed = initialSpeed * 1.2f;
+				if(GameManager.Instance.naturalWorldSpeed > initialSpeed){
+                    GameManager.Instance.naturalWorldSpeed = initialSpeed;
 				}
 			}
         }
