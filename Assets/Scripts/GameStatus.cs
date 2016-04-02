@@ -46,8 +46,8 @@ public class GameStatus : MonoBehaviour {
 		if (timeStampInnerZone <= Time.time)
         {
 			int randomInt;
-			randomInt = Random.Range(1,1000);
-			if (randomInt % 501 == 0) {
+			randomInt = Random.Range(1,1001);
+			if (randomInt % 500 == 0) {
 				timeStampInnerZone = Time.time + innerZoneCooldown;
 
 				return true;

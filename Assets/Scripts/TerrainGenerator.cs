@@ -47,28 +47,27 @@ public class TerrainGenerator : MonoBehaviour
 	{
 		// make the lastposition start at start spawn position
 		lastPosition = startSpawnPosition;
-        //StartCoroutine(CoroutineTerrain());
-        //InvokeRepeating("Behaviour", 0, 0.25f);
+        StartCoroutine(CoroutineTerrain());
+        //InvokeRepeating("Behaviour", 0, 0.1f);
     }
 	
-	void Update()
-	{
-		Behaviour ();
-    }
-
-    //IEnumerator CoroutineTerrain()
-    //{
-    //    GUI.depth = 2;
-    //    while (true)
-    //    {
-    //        if (Time.timeScale == 1)
-    //        {
-    //            yield return new WaitForSeconds(0.5f);
-    //            Behaviour();
-    //        }
-    //        yield return new WaitForSeconds(0.5f);
-    //    }
+	//void Update()
+	//{
+	//	Behaviour ();
     //}
+
+    IEnumerator CoroutineTerrain()
+    {
+        while (true)
+        {
+            if (Time.timeScale == 1)
+            {
+                yield return new WaitForSeconds(0.1f);
+                Behaviour();
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 
     protected void Behaviour(){
 
@@ -177,7 +176,7 @@ public class TerrainGenerator : MonoBehaviour
         lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 );
 		
 		if (i == 0){
-			innerZoneLength = Random.Range(3,9);
+			innerZoneLength = Random.Range(3,8);
             // Check distance from last building
             if (lastBuildingHeight == 0 && i == 0)
             {

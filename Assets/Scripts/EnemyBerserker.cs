@@ -19,6 +19,9 @@ public class EnemyBerserker : Enemy {
 				KillEnemy ();
 			}
 			break;
+		case "Obstacle":
+			KillEnemy ();
+			break;	
 		default:
 			break;
 		}
