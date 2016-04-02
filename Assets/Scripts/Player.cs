@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     float jumpForce;
     [SerializeField]
-    public List<GameObject> prefabs;
+    List<GameObject> prefabs;
     [SerializeField]
     GameObject shield;
 
@@ -41,10 +41,12 @@ public class Player : MonoBehaviour
     // Test Stuff 
     [SerializeField]
     bool freeMove;
+	BoxCollider2D colliderRef;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
+		colliderRef = gameObject.GetComponent<BoxCollider2D>();
         shield.SetActive(false);
         acceleration = 0.002f;
 		speedCap = 11.5f;
@@ -95,8 +97,9 @@ public class Player : MonoBehaviour
                         platformControllerActions(PlayerActions.SHIELD);
                         //platformControllerActions(PlayerActions.BEND);
 
-                        // Update score
-
+						if (FrontHit ()){
+							GameManager.Instance.naturalWorldSpeed = 0f;
+						}
 						GameManager.Instance.playerSpeed = speed;
                     }
                     break;
@@ -273,7 +276,8 @@ public class Player : MonoBehaviour
 	// Grounded Check *Debug option drawray*
     private bool IsGrounded()
     {
-        hit = Physics2D.Raycast(transform.position, Vector2.down, 0.65f, 1 << LayerMask.NameToLayer("Ground"));
+        hit = Physics2D.Raycast(transform.position, Vector2.down, ( colliderRef.size.y / 2 ), 1 << LayerMask.NameToLayer("Ground"));
+
         if (hit && !hit.collider.isTrigger)
         {
             if (hit.collider.tag == "Ground" || hit.collider.tag == "Street" || hit.collider.tag == "InnerZone")
@@ -287,5 +291,22 @@ public class Player : MonoBehaviour
         return false;
         //Debug.DrawRay(transform.position, Vector2.down, Color.red, 0.65f);
     }
+
+    private bool FrontHit()
+    {
 		
+        hit = Physics2D.Raycast(transform.position, Vector2.right, ( colliderRef.size.x / 2 ), 1 << LayerMask.NameToLayer("Ground"));
+        if (hit && !hit.collider.isTrigger)
+        {
+            if (hit.collider.tag == "Ground" || hit.collider.tag == "InnerZone")
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;  
+    }	
+	
 }
