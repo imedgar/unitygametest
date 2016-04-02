@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour
 			}
             if (spawnPositionX != 0)
             {
-                ObjectPool.instance.GetObjectForType("Berserker", true, new Vector3(spawnPositionX, 6, -2), Quaternion.Euler(0, 0, 0));
+                ObjectPool.instance.GetObjectForType("Berserker", true, new Vector3(( spawnPositionX - 2 ), 5.5f, -2), Quaternion.Euler(0, 0, 0));
 				spawnPositionX = 0;
             }
 		}

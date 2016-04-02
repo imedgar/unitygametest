@@ -19,32 +19,25 @@ public class TerrainGenerator : MonoBehaviour
 	
 	private string currentBuilding;
     private float buildingSize;
-	
+    public GameObject lastBuildingRef;	
     private float randomTerrain;
 	private int lastBuildingHeight;
 
     public int spawnRange = 16;
-
-    // keep track of the last position terrain was generated
-    private float lastPosition;
 	private int randomY; 
 	private float spawnYRandom;
 	
-	// Street ground variables
+    // keep track of the last position terrain was generated
 	
-	//public float streetStartSpawnPos;
-	//public float streetSpawnYPos;
-	//private float streetlastPos;
-	
+    private float lastPosition;
+
 	// Inner variables
 	
 	public float spawnInnerYPos;
 	private float innerlastPos;
     private int i;
-
-	// camera reference
-	private GameObject cam;
-    public GameObject lastBuildingRef;
+	public int innerZoneLength;
+	private bool lastObstacle = false;
 	
 	// used to check if terrain can be generated depending on the camera position and lastposition
 	private bool canSpawnRoofs = true;
@@ -54,8 +47,6 @@ public class TerrainGenerator : MonoBehaviour
 	{
 		// make the lastposition start at start spawn position
 		lastPosition = startSpawnPosition;
-		// pair camera to camera reference
-		cam = GameObject.Find("Main Camera");
         //StartCoroutine(CoroutineTerrain());
         //InvokeRepeating("Behaviour", 0, 0.25f);
     }
@@ -184,10 +175,9 @@ public class TerrainGenerator : MonoBehaviour
 		// Inners algorithm 
 		
         lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 );
-
-		bool lastObstacle = false;
 		
 		if (i == 0){
+			innerZoneLength = Random.Range(3,9);
             // Check distance from last building
             if (lastBuildingHeight == 0 && i == 0)
             {
@@ -202,7 +192,7 @@ public class TerrainGenerator : MonoBehaviour
 			lastPosition += buildingSize / 2;
             i+=1;
 		} 
-		else if (i == 9) {
+		else if (i == innerZoneLength) {
 			buildingSize = ObjectPool.instance.GetObjectSize ("Interior_prueba_bloque_final");
 			lastPosition += buildingSize / 2;
             lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque_final", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));
@@ -215,7 +205,7 @@ public class TerrainGenerator : MonoBehaviour
 			lastPosition += buildingSize / 2;
             lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque medio", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
 			int obstaclePc = Random.Range(1,10);
-			if (obstaclePc > 4 && !lastObstacle){
+			if (obstaclePc > 3 && !lastObstacle){
 				ObjectPool.instance.GetObjectForType ("obstaculo", true, new Vector3 (lastPosition, 2.66f, -2), Quaternion.Euler (0, 0, 0));
 				lastObstacle = true;
 			}
