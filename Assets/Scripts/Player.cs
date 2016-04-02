@@ -119,14 +119,25 @@ public class Player : MonoBehaviour
 			case RuntimePlatform.IPhonePlayer:
                 foreach (Touch touch in Input.touches)
                 {
-                    if (touch.position.x > Screen.width / 2 && action.Equals(PlayerActions.SHIELD))
-                    {
-                        UseShield();
-                    }
-                    if (touch.position.x < Screen.width / 2 && action.Equals(PlayerActions.JUMP))
-                    {
-                        Jump();
-                    }
+					if (GameManager.Instance.leftTapConfiguration){
+	                    if (touch.position.x > Screen.width / 2 && action.Equals(PlayerActions.SHIELD))
+	                    {
+	                        UseShield();
+	                    }
+	                    if (touch.position.x < Screen.width / 2 && action.Equals(PlayerActions.JUMP))
+	                    {
+	                        Jump();
+	                    }
+					} else {
+	                    if (touch.position.x < Screen.width / 2 && action.Equals(PlayerActions.SHIELD))
+	                    {
+	                        UseShield();
+	                    }
+	                    if (touch.position.x > Screen.width / 2 && action.Equals(PlayerActions.JUMP))
+	                    {
+	                        Jump();
+	                    }					
+					}
                 }
                 break;
             case RuntimePlatform.WindowsEditor:

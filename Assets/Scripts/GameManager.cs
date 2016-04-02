@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour {
     public float naturalWorldSpeedCap;
     public float naturalWorldAcceleration;
 
-// Player stuff
-public float score;
+	// Player stuff
+	public float score;
 	public int streetsPrepared;
 	public float playerSpeed;
 	public int playerTransition;
@@ -36,6 +36,7 @@ public float score;
 	
 	// Controller Android
 	public RuntimePlatform platform;
+	public bool leftTapConfiguration;
 	
 	// Canvas Ref
 	GameObject canvas;
@@ -62,6 +63,7 @@ public float score;
         naturalWorldSpeedCap = 12.5f;
         playerEnteredInnerZone = true;
 		platform = Application.platform;
+		leftTapConfiguration = true;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
 		_instance = this;
 	}

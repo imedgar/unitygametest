@@ -38,7 +38,6 @@ public class GameStatus : MonoBehaviour {
 	void ToInnerZone () {
 		if (RandomInnerZone() && GameManager.Instance.CanStartGameLogic()){
 			GameManager.Instance.currentState = GameManager.GameStates.InnerZone;
-			Debug.Log ("INNER ZONE");
 		}
 	}
 	
