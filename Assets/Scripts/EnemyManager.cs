@@ -37,7 +37,6 @@ public class EnemyManager : MonoBehaviour
 	private int ChumpRayBuilding (){
         
 		int positionX;
-		int chumpRayX = (int) playerRef.transform.position.x + distanceToPlayerSpawn;
 
 		for (int i = 25; i > 0; i-- ){
 			Vector2 chumpRayPosition = new Vector2(i, 10);

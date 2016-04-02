@@ -110,7 +110,7 @@ public class TerrainGenerator : MonoBehaviour
 	{
 		// Roofs algorithm 
 		randomTerrain = Random.Range(1,10);
-        randomY = Random.Range(1, 10);
+        randomY = Random.Range(1, 11);
 		
 		if (lastBuildingHeight == 0 && randomY > 5) {
 			if (!firstTime){
@@ -205,7 +205,7 @@ public class TerrainGenerator : MonoBehaviour
 			lastPosition += buildingSize / 2;
             lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque medio", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
 			int obstaclePc = Random.Range(1,10);
-			if (obstaclePc > 3 && !lastObstacle){
+			if (obstaclePc > 2 && !lastObstacle){
 				ObjectPool.instance.GetObjectForType ("obstaculo", true, new Vector3 (lastPosition, 2.66f, -2), Quaternion.Euler (0, 0, 0));
 				lastObstacle = true;
 			}

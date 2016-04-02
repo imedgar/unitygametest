@@ -28,11 +28,6 @@ public class GameStatus : MonoBehaviour {
 
         ToInnerZone ();
 		InnerZoom ();
-
-		// Streets mode
-		//if (GameManager.Instance.score * 1.5 > 800){
-		//	ToStreets ();
-		//}
 	}
 	
 	void ToStreets () {
