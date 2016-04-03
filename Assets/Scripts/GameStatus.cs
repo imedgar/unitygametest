@@ -9,9 +9,11 @@ public class GameStatus : MonoBehaviour {
 	[SerializeField]
     float innerZoneCooldown;
     int score = 0;
+	Camera mainCamRef;
 	// Use this for initialization
 	void Start () {
 		deathDetectorRef = GameObject.FindGameObjectWithTag ("DeathDetector");
+		mainCamRef = Camera.main;
 	}
 	
 	// Update is called once per frame
@@ -58,13 +60,13 @@ public class GameStatus : MonoBehaviour {
 	void InnerZoom () {
 		if (GameManager.Instance.playerEnteredInnerZone){
             
-            if (Camera.main.orthographicSize > 7){
-                Camera.main.orthographicSize -= 1f * Time.deltaTime; 
+            if (mainCamRef.orthographicSize > 7){
+                mainCamRef.orthographicSize -= 1f * Time.deltaTime; 
 			}
 			
 		} else {
-            if (Camera.main.orthographicSize < 8 && GameManager.Instance.score * 1.5 > 10){
-                Camera.main.orthographicSize += 1f * Time.deltaTime; 
+            if (mainCamRef.orthographicSize < 8 && GameManager.Instance.score * 1.5 > 10){
+                mainCamRef.orthographicSize += 1f * Time.deltaTime; 
 			}
 		}
 	}

@@ -6,10 +6,12 @@ public class Parallax : MonoBehaviour {
 	public float velocity = 0f;
 	public GameObject target;
 	public float offsetY;
+	private Renderer rendererRef;
 
 	// Use this for initialization
 	void Start () {
 		target = GameObject.FindGameObjectWithTag ("Player");
+		rendererRef = GetComponent<Renderer> ();
 	}
 	
 	// Update is called once per frame
@@ -38,7 +40,7 @@ public class Parallax : MonoBehaviour {
                     break;
                 case GameManager.GameStates.Roofs:
                 case GameManager.GameStates.InnerZone:
-					GetComponent<Renderer> ().material.mainTextureOffset = new Vector2 ((Time.time * velocity) % 1, 0);
+					rendererRef.material.mainTextureOffset = new Vector2 ((Time.time * velocity) % 1, 0);
                     break;
                 default:
                     break;
