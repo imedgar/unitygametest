@@ -4,6 +4,10 @@ using System.Collections;
 public class FarToPool : MonoBehaviour {
 
 	private GameObject camRef;
+	[SerializeField]
+	bool parentMoving;
+	[SerializeField]
+	int distanceToPool = 30;
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +17,7 @@ public class FarToPool : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if ((camRef.transform.position.x) - (gameObject.transform.position.x + 0.1) >= 30 && GameManager.Instance.CanStartGameLogic())
+		if ((camRef.transform.position.x) - (gameObject.transform.position.x + 0.1) >= distanceToPool && GameManager.Instance.CanStartGameLogic())
 		{
 			BacktoPool();
 		}
@@ -29,7 +33,9 @@ public class FarToPool : MonoBehaviour {
     }
 
     void objectNaturalMoving() {
-        transform.Translate(Vector3.left * GameManager.Instance.naturalWorldSpeed * Time.deltaTime);
+		if (!parentMoving){
+        	transform.Translate(Vector3.left * GameManager.Instance.naturalWorldSpeed * Time.deltaTime);
+		}
     }
 
 	void BacktoPool () {
