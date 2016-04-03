@@ -38,7 +38,7 @@ public class EnemyManager : MonoBehaviour
 			Vector2 chumpRayPosition = new Vector2(i, 10);
 			hit = Physics2D.Raycast(chumpRayPosition, Vector2.down, 200, 1 << LayerMask.NameToLayer("Ground"));
 			if (hit) {
-				if(hit.transform.tag == "Ground"){
+				if (hit.transform.tag == "Ground"){
 					return hit.point;
 				}
 			} 

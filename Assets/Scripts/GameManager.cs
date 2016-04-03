@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
 		playerTransition = 0;
         naturalWorldSpeed = 9.8f;
         naturalWorldAcceleration = 0.002f;
-        naturalWorldSpeedCap = 12.5f;
+        naturalWorldSpeedCap = 13f;
         playerEnteredInnerZone = true;
 		platform = Application.platform;
 		leftTapConfiguration = true;
