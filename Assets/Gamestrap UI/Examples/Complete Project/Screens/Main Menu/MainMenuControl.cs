@@ -111,5 +111,13 @@ namespace Gamestrap
             panelAnimator.SetBool(visibleVariable, !panelAnimator.GetBool(visibleVariable));
         }
         #endregion
+		
+		public void ChangeControls(){
+			if (GameManager.Instance.leftTapConfiguration){
+				GameManager.Instance.leftTapConfiguration = false;
+			} else {
+				GameManager.Instance.leftTapConfiguration = true;
+			}
+		}
     }
 }
