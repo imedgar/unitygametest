@@ -113,7 +113,7 @@ public class TerrainGenerator : MonoBehaviour
 		randomTerrain = Random.Range(1,19);
         randomY = Random.Range(1, 11);
 		
-		if (lastBuildingHeight == 0 && randomY > 5) {
+		if (lastBuildingHeight == 0 && randomY > 5 && currentBuilding != "balcon") {
 			if (!firstTime){
 				lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 ) + minDistanceBetweenBuildings;		
 			} else { firstTime = false; }
