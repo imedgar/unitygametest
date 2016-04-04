@@ -133,11 +133,7 @@ public class TerrainGenerator : MonoBehaviour
         else {
             spawnYRandom = spawnYPos + maxHighBuildings;
         }
-		
-		if (lastBuildingHeight == 0 && currentBuilding == "balcon" && randomY > 5 && randomTerrain > 16 && randomTerrain < 11){
-			spawnYRandom = spawnYPos;
-		}
-			
+
         if (randomTerrain <= 5)
         {
             currentBuilding = "Base_Pequena";
@@ -154,13 +150,10 @@ public class TerrainGenerator : MonoBehaviour
         }
         else if (randomTerrain > 10 && randomTerrain <= 15)
         {
-			if (randomY <= 5){
-				spawnYRandom += 2.5f;
-			}
             currentBuilding = "balcon";
 			buildingSize = ObjectPool.instance.GetObjectSize (currentBuilding);
 			lastPosition += buildingSize / 2;
-            lastBuildingRef = ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom + 4.5f), Quaternion.Euler(0, 0, 0));
+            lastBuildingRef = ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom + 6.7f), Quaternion.Euler(0, 0, 0));
 		
 		}
 		else if (randomTerrain > 15 && randomTerrain <= 18)
