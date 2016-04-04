@@ -112,20 +112,15 @@ public class TerrainGenerator : MonoBehaviour
 		randomTerrain = Random.Range(1,10);
         randomY = Random.Range(1, 11);
 		
-		if (lastBuildingHeight == 0 && randomY > 5 && currentBuilding != "balcon") {
+		if (lastBuildingHeight == 0 && randomY > 5) {
 			if (!firstTime){
-				lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 ) + minDistanceBetweenBuildings;		
-			} else { 
-				firstTime = false; 
-			}
-
+				lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 ) + minDistanceBetweenBuildings;
+			} else { firstTime = false; }
 		} 
 		else{
 			if (!firstTime){
                 lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 ) + maxDistanceBetweenBuildings;
-			} else { 
-				firstTime = false; 
-			}
+			} else { firstTime = false; }
 		}
 		
 		// Roofs Height random
@@ -135,7 +130,7 @@ public class TerrainGenerator : MonoBehaviour
             spawnYRandom = spawnYPos + minHighBuildings;
         }
         else {
-            spawnYRandom = spawnYPos + maxHighBuildings;
+            spawnYRandom = spawnYPos + maxHighBuildings;;
         }
 		
 			
@@ -153,20 +148,12 @@ public class TerrainGenerator : MonoBehaviour
 			lastPosition += buildingSize / 2;
             lastBuildingRef = ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
         }
-        else if (randomTerrain > 10 && randomTerrain <= 15)
+        else if (randomTerrain > 8 && randomTerrain <= 10)
         {
             currentBuilding = "Base_Larga";
 			buildingSize = ObjectPool.instance.GetObjectSize (currentBuilding);
 			lastPosition += buildingSize / 2;
             lastBuildingRef = ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
-		
-		}
-		else if (randomTerrain > 15 && randomTerrain <= 18)
-        {
-            currentBuilding = "balcon";
-			buildingSize = ObjectPool.instance.GetObjectSize (currentBuilding);
-			lastPosition += buildingSize / 2;
-            lastBuildingRef = ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom + 6.7f), Quaternion.Euler(0, 0, 0));
         }
 
 		if (randomY <= 5)
