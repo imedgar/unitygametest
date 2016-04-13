@@ -20,8 +20,10 @@ public class GameStatus : MonoBehaviour {
 	void Update () {
         if (GameManager.Instance.CanStartGameLogic())
         {
-            score++;
-            GameManager.Instance.score = (int)(score * 0.2);
+			if (Time.timeScale != 0f){
+	            score++;
+	            GameManager.Instance.score = (int)(score * 0.2);
+			}
             if (GameManager.Instance.naturalWorldSpeed < GameManager.Instance.naturalWorldSpeedCap)
             {
                 GameManager.Instance.naturalWorldSpeed += GameManager.Instance.naturalWorldAcceleration;
