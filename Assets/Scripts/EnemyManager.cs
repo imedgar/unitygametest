@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
             if (spawnPoint.x != 0)
             {
                 ObjectPool.instance.GetObjectForType("Berserker", true, 
-					new Vector3(( spawnPoint.x - 2 ), spawnPoint.y, -2), Quaternion.Euler(0, 0, 0));
+					new Vector3(( spawnPoint.x ), spawnPoint.y, -2), Quaternion.Euler(0, 0, 0));
 				spawnPoint = new Vector2 (0,0);
             }
 		}

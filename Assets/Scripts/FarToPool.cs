@@ -21,6 +21,10 @@ public class FarToPool : MonoBehaviour {
 		{
 			BacktoPool();
 		}
+        if ((camRef.transform.position.y) - (gameObject.transform.position.y + 0.1) >= distanceToPool && GameManager.Instance.CanStartGameLogic())
+        {
+            BacktoPool();
+        }
         if (GameManager.Instance.CanStartGameLogic())
         {
             objectNaturalMoving();
