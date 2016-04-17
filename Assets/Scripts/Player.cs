@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     float shieldDuration;
     float timeStampShield;
-
+	
     RaycastHit2D hit;
 
     // Player RigidBody Reference
@@ -259,6 +259,10 @@ public class Player : MonoBehaviour
 				}
 			}
         }
+		if (coll.gameObject.tag == "Item"){
+			ObjectPool.instance.PoolObject(coll.gameObject);
+			GameManager.Instance.playerCanBreak = true;
+		}
     }
 
     void CollisionEvents(Collision2D coll)

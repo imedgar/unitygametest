@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
 	public float playerSpeed;
 	public int playerTransition;
 	public bool playerEnteredInnerZone;
+	public bool playerCanBreak;
 	
 	// Controller Android
 	public RuntimePlatform platform;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour {
         naturalWorldAcceleration = 0.002f;
         naturalWorldSpeedCap = 13f;
         playerEnteredInnerZone = true;
+		playerCanBreak = false;
 		platform = Application.platform;
 		leftTapConfiguration = true;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");
