@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
 	public float playerSpeed;
 	public int playerTransition;
 	public bool playerEnteredInnerZone;
+	public bool playerCanBreak;
 	
 	// Controller Android
 	public RuntimePlatform platform;
@@ -59,9 +60,15 @@ public class GameManager : MonoBehaviour {
 		streetsPrepared = 0;
 		playerTransition = 0;
         naturalWorldSpeed = 9.8f;
+<<<<<<< HEAD
         naturalWorldAcceleration = 0.002f;
         naturalWorldSpeedCap = 12.5f;
+=======
+        naturalWorldAcceleration = 0.004f;
+        naturalWorldSpeedCap = 13f;
+>>>>>>> recuperar_error
         playerEnteredInnerZone = true;
+		playerCanBreak = false;
 		platform = Application.platform;
 		leftTapConfiguration = true;
 		canvas = GameObject.FindGameObjectWithTag ("UIPanel");

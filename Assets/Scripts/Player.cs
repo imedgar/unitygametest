@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     float shieldDuration;
     float timeStampShield;
-
+	
     RaycastHit2D hit;
 
     // Player RigidBody Reference
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
 		colliderRef = gameObject.GetComponent<BoxCollider2D>();
         shield.SetActive(false);
-        acceleration = 0.002f;
+        acceleration = 0.004f;
 		speedCap = 11.5f;
         initialSpeed = GameManager.Instance.naturalWorldSpeed;
 		speedRecorder = GameManager.Instance.naturalWorldSpeed;
@@ -259,6 +259,10 @@ public class Player : MonoBehaviour
 				}
 			}
         }
+		if (coll.gameObject.tag == "Item"){
+			ObjectPool.instance.PoolObject(coll.gameObject);
+			GameManager.Instance.playerCanBreak = true;
+		}
     }
 
     void CollisionEvents(Collision2D coll)

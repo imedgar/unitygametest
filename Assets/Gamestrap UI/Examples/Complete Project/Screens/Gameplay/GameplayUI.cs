@@ -40,11 +40,16 @@ namespace Gamestrap
 
                 if (pause)
                 {
-                    pausePanel.GetComponent<Animator>().SetBool("Visible", true);
-                }
-                else
-                {		
-                    pausePanel.GetComponent<Animator>().SetBool("Visible", false);
+
+					if (Time.timeScale != 0f){
+						Time.timeScale = 0f;
+						pausePanel.GetComponent<Animator>().SetBool("Visible", true);
+					}
+					else {
+						Time.timeScale = 1.0f;
+						pausePanel.GetComponent<Animator>().SetBool("Visible", false);
+					}
+					
                 }
             }
         }
