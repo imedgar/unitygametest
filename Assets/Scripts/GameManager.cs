@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
 		streetsPrepared = 0;
 		playerTransition = 0;
         naturalWorldSpeed = 9.8f;
-        naturalWorldAcceleration = 0.002f;
+        naturalWorldAcceleration = 0.004f;
         naturalWorldSpeedCap = 13f;
         playerEnteredInnerZone = true;
 		playerCanBreak = false;

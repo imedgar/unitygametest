@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
 		colliderRef = gameObject.GetComponent<BoxCollider2D>();
         shield.SetActive(false);
-        acceleration = 0.002f;
+        acceleration = 0.004f;
 		speedCap = 11.5f;
         initialSpeed = GameManager.Instance.naturalWorldSpeed;
 		speedRecorder = GameManager.Instance.naturalWorldSpeed;
