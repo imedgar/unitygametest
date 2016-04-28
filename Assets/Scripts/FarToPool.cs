@@ -29,11 +29,6 @@ public class FarToPool : MonoBehaviour {
         {
             objectNaturalMoving();
         }
-        //if (GameManager.Instance.currentState == GameManager.GameStates.Street && gameObject.tag == "Ground"){
-        //	boxCol.enabled = false;
-        //} else if (GameManager.Instance.currentState != GameManager.GameStates.Street && gameObject.tag == "Ground"){
-        //	boxCol.enabled = true;
-        //}
     }
 
     void objectNaturalMoving() {

@@ -221,6 +221,9 @@ public class TerrainGenerator : MonoBehaviour
 			lastPosition += buildingSize / 2;
             lastBuildingRef = ObjectPool.instance.GetObjectForType ("Interior_prueba_bloque medio", true, new Vector3 (lastPosition, spawnInnerYPos, -1), Quaternion.Euler (0, 0, 0));				
 			lastBuildingRef.transform.parent = innerZoneCont.transform;
+			
+			// Generate inner obstacles
+			
 			int obstaclePc = Random.Range(1,10);
 			if (obstaclePc > 2){
 				ObjectPool.instance.GetObjectForType ("obstaculo", true, new Vector3 (lastPosition, 2.66f, -2), Quaternion.Euler (0, 0, 0)).transform.parent = innerZoneCont.transform;

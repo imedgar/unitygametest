@@ -10,12 +10,14 @@ public class EnemyManager : MonoBehaviour
 	Vector2 spawnPoint;
 	Vector2 powerUpPoint;
 	private RaycastHit2D hit;
+	private GameObject coinCollection;
 
 	private void Start(){
 		if (spawnEnemyBerserker) {
 			InvokeRepeating("SpawnPrefabBerserker",2, 3.75f);
 		}
 		InvokeRepeating("PowerUpSpawn",2, 5.0f);
+		InvokeRepeating("CoinSpawn",2, 5.0f);
 	}
 	
 	private void SpawnPrefabBerserker(){
@@ -47,22 +49,7 @@ public class EnemyManager : MonoBehaviour
 		return new Vector2 (0,0);
 	}
 	
-	void PowerUpSpawn () {
-		if (GameManager.Instance.CanStartGameLogic()){
-			int randomInt;
-			randomInt = Random.Range(1,6);
-			if (randomInt.Equals(3)) {
-				powerUpPoint = ChumpRayBuilding();
-				if (powerUpPoint.x != 0)
-	            {
-					ObjectPool.instance.GetObjectForType("PowerUp", true, 
-						new Vector3(powerUpPoint.x, powerUpPoint.y + 1, -2), 
-						Quaternion.Euler(0, 0, 0));
-					powerUpPoint = new Vector2 (0,0);
-	            }
-			}
-		}
-	}
+
 	
 	float GetRandomSpawnPointOnBuilding (GameObject building) {
 		
@@ -90,4 +77,46 @@ public class EnemyManager : MonoBehaviour
 		return position;
 	}
 
+	void PowerUpSpawn () {
+		if (GameManager.Instance.CanStartGameLogic()){
+			int randomInt;
+			randomInt = Random.Range(1,6);
+			if (randomInt.Equals(3)) {
+				powerUpPoint = ChumpRayBuilding();
+				if (powerUpPoint.x != 0)
+	            {
+					ObjectPool.instance.GetObjectForType("PowerUp", true, 
+						new Vector3(powerUpPoint.x, powerUpPoint.y + 1, -2), 
+						Quaternion.Euler(0, 0, 0));
+					powerUpPoint = new Vector2 (0,0);
+	            }
+			}
+		}
+	}
+	
+	
+	// Coin spawn algorithm
+	
+	void CoinSpawn () {
+		if (GameManager.Instance.CanStartGameLogic()){
+			int randomInt;
+			randomInt = Random.Range(1,6);
+			if (randomInt.Equals(4)) {
+				powerUpPoint = ChumpRayBuilding();
+				if (powerUpPoint.x != 0)
+	            {
+					coinCollection = ObjectPool.instance.GetObjectForType ("CoinCollection", true, new Vector3 (powerUpPoint.x, powerUpPoint.y + 3, -1), Quaternion.Euler (0, 0, 0));
+					for (int i = 0; i < 5; i++){
+						ObjectPool.instance.GetObjectForType("coin", true, 
+						new Vector3(powerUpPoint.x + 1, powerUpPoint.y + 3, -2), 
+						Quaternion.Euler(0, 0, 0)).transform.parent = coinCollection.transform;
+						powerUpPoint.x += 1;
+							
+					}
+					powerUpPoint = new Vector2 (0,0);
+	            }
+			}
+		}
+	}
+	
 }
