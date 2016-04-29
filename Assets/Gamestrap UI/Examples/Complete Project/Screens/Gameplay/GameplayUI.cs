@@ -9,6 +9,7 @@ namespace Gamestrap
 
         public GameObject pauseButton;
 		public GameObject pausePanel;
+		public GameObject coinImage;
 
         private bool pause;
 		
@@ -16,11 +17,14 @@ namespace Gamestrap
 		public Text lastScore;
 		public Text currentScore;
 		public Text speed;
+		public Text coins;
 		
 		void Start (){
 			currentScore.enabled = false;
 			speed.enabled = false;
 			pauseButton.SetActive (false);
+			coinImage.SetActive (false);
+			coins.enabled = false;
 		}
 		
 		void Update()
@@ -61,6 +65,15 @@ namespace Gamestrap
 				speed.enabled = (true);
 				speed.text = (Mathf.Round (GameManager.Instance.naturalWorldSpeed)) + " sp";
 				currentScore.text = (Mathf.Round (GameManager.Instance.score)) + " m";
+				if (GameManager.Instance.showCoins){
+					coinImage.SetActive (true);
+					coins.enabled = (true);
+					coins.text = GameManager.Instance.totalCoins + "";
+				}
+				else{
+					coinImage.SetActive (false);
+					coins.enabled = (false);
+				}
 			}
 			lastScore.text = PlayerPrefs.GetInt("lastscore").ToString() + " last";
 			highScore.text = PlayerPrefs.GetInt("highscore").ToString() + " max";

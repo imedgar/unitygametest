@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
     public float naturalWorldSpeed;
     public float naturalWorldSpeedCap;
     public float naturalWorldAcceleration;
+	public bool showCoins;
+	public int totalCoins;
 
 	// Player stuff
 	public float score;
@@ -62,6 +64,8 @@ public class GameManager : MonoBehaviour {
         naturalWorldSpeed = 9.8f;
         naturalWorldAcceleration = 0.004f;
         naturalWorldSpeedCap = 13f;
+		showCoins = false;
+		totalCoins = 0;
         playerEnteredInnerZone = true;
 		playerCanBreak = false;
 		platform = Application.platform;

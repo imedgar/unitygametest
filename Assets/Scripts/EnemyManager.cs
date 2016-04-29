@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
 			InvokeRepeating("SpawnPrefabBerserker",2, 3.75f);
 		}
 		InvokeRepeating("PowerUpSpawn",2, 5.0f);
-		InvokeRepeating("CoinSpawn",2, 5.0f);
+		InvokeRepeating("CoinSpawn",2, 4.0f);
 	}
 	
 	private void SpawnPrefabBerserker(){
