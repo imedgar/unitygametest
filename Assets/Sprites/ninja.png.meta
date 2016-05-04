@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: 09e3dd422e7daa641a4a242c631a63a2
+timeCreated: 1462382303
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ninja_0
+    21300002: ninja_1
+    21300004: ninja_2
+    21300006: ninja_3
+    21300008: ninja_4
+    21300010: ninja_5
+    21300012: ninja_6
+    21300014: ninja_7
+    21300016: ninja_8
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: ninja_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 742
+        width: 254
+        height: 307
+      alignment: 9
+      pivot: {x: 0.6425518, y: 0.101245}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 59.791855, y: 53.917786}
+        - {x: 90.791855, y: 107.917786}
+        - {x: 90.791855, y: 157.91779}
+        - {x: 88.791855, y: 192.91779}
+        - {x: 54.791855, y: 233.91779}
+        - {x: 8.791855, y: 275.9178}
+        - {x: -13.208145, y: 275.9178}
+        - {x: -163.20815, y: 206.91779}
+        - {x: -163.20815, y: 192.91779}
+        - {x: -147.20815, y: 145.91779}
+        - {x: -134.20815, y: 107.917786}
+        - {x: -64.208145, y: 25.917786}
+        - {x: -70.208145, y: 13.917786}
+        - {x: -71.208145, y: 0.91778564}
+        - {x: -56.208145, y: -5.0822144}
+        - {x: 5.791855, y: -31.082214}
+        - {x: 24.791855, y: -31.082214}
+        - {x: 32.791855, y: -29.082214}
+        - {x: 59.791855, y: -9.082214}
+        - {x: 74.791855, y: 40.917786}
+        - {x: 72.791855, y: 46.917786}
+    - name: ninja_1
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 754
+        width: 172
+        height: 250
+      alignment: 9
+      pivot: {x: 0.48997605, y: 0.48620653}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 54.72412, y: 63.448364}
+        - {x: 29.724121, y: 110.448364}
+        - {x: 12.724121, y: 128.44836}
+        - {x: -46.27588, y: 128.44836}
+        - {x: -58.27588, y: 126.448364}
+        - {x: -84.27588, y: 102.448364}
+        - {x: -84.27588, y: -75.551636}
+        - {x: -77.27588, y: -111.551636}
+        - {x: -60.27588, y: -121.551636}
+        - {x: 25.724121, y: -121.551636}
+        - {x: 51.72412, y: -119.551636}
+        - {x: 81.72412, y: -110.551636}
+        - {x: 87.72412, y: -94.551636}
+        - {x: 87.72412, y: -34.551636}
+    - name: ninja_2
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 548
+        width: 41
+        height: 159
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30, y: 0}
+        - {x: -41, y: -8}
+        - {x: -41, y: -159}
+        - {x: -18, y: -159}
+        - {x: 0, y: -98}
+        - {x: 0, y: 0}
+    - name: ninja_3
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 550
+        width: 52
+        height: 158
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 1, y: 0}
+        - {x: 0, y: -3}
+        - {x: 0, y: -59}
+        - {x: 23, y: -139}
+        - {x: 33, y: -158}
+        - {x: 52, y: -158}
+        - {x: 52, y: -45}
+        - {x: 40, y: 0}
+    - name: ninja_4
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 345
+        width: 134
+        height: 174
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: 0}
+        - {x: 0, y: -97}
+        - {x: 66, y: -174}
+        - {x: 121, y: -174}
+        - {x: 134, y: -172}
+        - {x: 134, y: -114}
+        - {x: 27, y: 0}
+    - name: ninja_5
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 348
+        width: 181
+        height: 176
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 86, y: -176}
+        - {x: 181, y: -176}
+        - {x: 181, y: -115}
+        - {x: 112, y: -1}
+        - {x: 100, y: 0}
+        - {x: 0, y: 0}
+        - {x: 0, y: -65}
+    - name: ninja_6
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 10
+        width: 143
+        height: 241
+      alignment: 9
+      pivot: {x: 0.2950257, y: 1.0079578}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -42.188675, y: -1.9178314}
+        - {x: -42.188675, y: -165.91783}
+        - {x: -15.188675, y: -242.91783}
+        - {x: 100.811325, y: -242.91783}
+        - {x: 100.811325, y: -30.917831}
+        - {x: 50.811325, y: -1.9178314}
+    - name: ninja_7
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 10
+        width: 65
+        height: 230
+      alignment: 9
+      pivot: {x: 0.50000095, y: 0.97977614}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32.50006, y: 4.6514893}
+        - {x: -32.50006, y: -150.34851}
+        - {x: -26.500061, y: -224.34851}
+        - {x: -23.500061, y: -225.34851}
+        - {x: 6.499939, y: -225.34851}
+        - {x: 10.499939, y: -220.34851}
+        - {x: 32.49994, y: -64.34851}
+        - {x: 32.49994, y: 4.6514893}
+    - name: ninja_8
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 9
+        width: 64
+        height: 228
+      alignment: 9
+      pivot: {x: 0.5, y: 0.9688601}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23, y: 7.0998993}
+        - {x: -32, y: -2.9001007}
+        - {x: -32, y: -85.9001}
+        - {x: -23, y: -217.9001}
+        - {x: -22, y: -220.9001}
+        - {x: 9, y: -220.9001}
+        - {x: 32, y: -78.9001}
+        - {x: 32, y: 1.0998993}
+        - {x: 24, y: 7.0998993}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
