@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
                     if (whichUpdate.Equals("Update"))
                     {
                         platformControllerActions(PlayerActions.JUMP);
+						AnimationManager ();
                     }
                     // FixedUpdate Loop Stuff
                     else if (whichUpdate.Equals("FixedUpdate"))
@@ -107,11 +108,21 @@ public class Player : MonoBehaviour
                     break;
 		
                 default:
-                    Debug.Log("Unaccepted command!");
+
                     break;
             }
         }
     }
+	
+	private void AnimationManager () {
+		
+		if (IsGrounded()){
+			animator.Play("Correr");
+		} else {
+			animator.Play("Jump");
+		}
+		
+	}
 
     private void platformControllerActions(PlayerActions action)
     {
@@ -196,7 +207,7 @@ public class Player : MonoBehaviour
         {
             //rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
-			GetComponent<Animation>().Play("Jump");
+			animator.Play("Jump");
         }
     }
 	
@@ -211,6 +222,7 @@ public class Player : MonoBehaviour
 			// Switch player state
             GameManager.Instance.currentPlayerState = GameManager.PlayerStates.Shielded;
             Invoke("StopShielding", shieldDuration);
+			animator.Play("Attack");
         }
     }
 
