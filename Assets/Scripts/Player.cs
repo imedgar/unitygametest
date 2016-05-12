@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     List<GameObject> prefabs;
     [SerializeField]
     GameObject shield;
+	[SerializeField]
+	Animator animator;
 
     float weaponCoolDown;
     [SerializeField]
@@ -103,9 +105,7 @@ public class Player : MonoBehaviour
 						GameManager.Instance.playerSpeed = speed;
                     }
                     break;
-                case GameManager.GameStates.Street:
-                        Transition();
-                    break;			
+		
                 default:
                     Debug.Log("Unaccepted command!");
                     break;
@@ -196,6 +196,7 @@ public class Player : MonoBehaviour
         {
             //rb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
+			GetComponent<Animation>().Play("Jump");
         }
     }
 	
@@ -223,17 +224,6 @@ public class Player : MonoBehaviour
 	private void Bend (){
 		transform.Rotate (Vector3.forward * -90);
 	}
-	
-	// Transition action to streets
-    private void Transition()
-    {
-        if (GameManager.Instance.playerTransition == 0)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce * 4);
-            GameManager.Instance.playerTransition++;
-            speed = initialSpeed;
-        }
-    }
 	
 	// Collision Events
     void OnCollisionEnter2D(Collision2D coll)
@@ -284,7 +274,7 @@ public class Player : MonoBehaviour
 
         if (hit && !hit.collider.isTrigger)
         {
-            if (hit.collider.tag == "Ground" || hit.collider.tag == "Street" || hit.collider.tag == "InnerZone")
+            if (hit.collider.tag == "Ground" || hit.collider.tag == "InnerZone")
             {
                 return true;
             }
