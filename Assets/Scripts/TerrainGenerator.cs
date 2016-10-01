@@ -49,14 +49,14 @@ public class TerrainGenerator : MonoBehaviour
 	{
 		// make the lastposition start at start spawn position
 		lastPosition = startSpawnPosition;
-        StartCoroutine(CoroutineTerrain());
+        //StartCoroutine(CoroutineTerrain());
         //InvokeRepeating("Behaviour", 0, 0.1f);
     }
 	
-	//void Update()
-	//{
-	//	Behaviour ();
-    //}
+	void Update()
+	{
+	SpawnTest();
+    }
 
     IEnumerator CoroutineTerrain()
     {
@@ -174,6 +174,29 @@ public class TerrainGenerator : MonoBehaviour
         else {
 			lastBuildingHeight = 1;
         }
+
+        // script is now ready to spawn more terrain
+        canSpawnRoofs = true;
+
+	}
+	
+		// spawn terrain based on the rand int passed by the update method
+	void SpawnTest()
+	{
+		// Roofs algorithm 
+		randomTerrain = Random.Range(1,maxRandom);
+        randomY = Random.Range(1, 11);
+		
+
+		lastPosition = lastBuildingRef.transform.position.x + ( buildingSize / 2 ) + minDistanceBetweenBuildings;		
+
+		Debug.Log("asd");
+         currentBuilding = "Edificio_1";
+		buildingSize = ObjectPool.instance.GetObjectSize (currentBuilding);
+			lastPosition += buildingSize / 2;
+            lastBuildingRef = ObjectPool.instance.GetObjectForType(currentBuilding, true, new Vector3(lastPosition, spawnYRandom, -1), Quaternion.Euler(0, 0, 0));
+        
+
 
         // script is now ready to spawn more terrain
         canSpawnRoofs = true;

@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
 
 	void Awake() {
 		score = 0;
-		currentState = GameStates.Mainmenu;
+		currentState = GameStates.Roofs;
 		currentPlayerState = PlayerStates.Idle;
 		streetsPrepared = 0;
 		playerTransition = 0;

@@ -4,6 +4,8 @@ using System.Collections;
 public class FarToPool : MonoBehaviour {
 
 	private GameObject camRef;
+	private Transform camTransformCached;
+	private Transform objectTransformCached;
 	[SerializeField]
 	bool parentMoving;
 	[SerializeField]
@@ -12,22 +14,20 @@ public class FarToPool : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// pair camera to camera reference
-		camRef = GameObject.Find("Main Camera");
+		this.camRef = GameObject.Find("Camera");
+		this.camTransformCached = camRef.GetComponent<Transform> ();
+		this.objectTransformCached = GetComponent<Transform> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if ((camRef.transform.position.x) - (gameObject.transform.position.x + 0.1) >= distanceToPool && GameManager.Instance.CanStartGameLogic())
+		if ((camTransformCached.position.x) - (objectTransformCached.position.x + 0.1) >= distanceToPool && GameManager.Instance.CanStartGameLogic())
 		{
 			BacktoPool();
 		}
-        if ((camRef.transform.position.y) - (gameObject.transform.position.y + 0.1) >= distanceToPool && GameManager.Instance.CanStartGameLogic())
+        if ((camTransformCached.position.y) - (objectTransformCached.position.y + 0.1) >= distanceToPool && GameManager.Instance.CanStartGameLogic())
         {
             BacktoPool();
-        }
-        if (GameManager.Instance.CanStartGameLogic())
-        {
-            objectNaturalMoving();
         }
     }
 
