@@ -1,24 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class CoroutineUtil {
-     public static IEnumerator WaitForRealSeconds(float time)
-     {
-         float start = Time.realtimeSinceStartup;
-         while (Time.realtimeSinceStartup < start + time)
-         {
-             yield return null;
-         }
-     }
- 
+public static class CoroutineUtilities {
+    
+	public static IEnumerator WaitForRealTime(float delay){
+        
+		while(true){
+            
+			float pauseEndTime = Time.realtimeSinceStartup + delay;
+            while (Time.realtimeSinceStartup < pauseEndTime){
+                yield return 0;
+            }
+			
+            break;
+			
+        }
+		
+    }
 }
-
-// USAGE
-// private IEnumerator MyCoroutine()
-// {
-//     // Do stuff
-// 
-//     yield return StartCoroutine(CoroutineUtil.WaitForRealSeconds(DURATION));
-// 
-//     // Do other stuff
-// }

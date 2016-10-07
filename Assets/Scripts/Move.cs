@@ -8,6 +8,9 @@ public class Move : MonoBehaviour {
 	
 	private Animator animationCached;
 	
+	public delegate bool OnAction();
+	public static event OnAction isGrounded;
+	
 	// Awake
 	void Awake ()
 	{
@@ -19,7 +22,11 @@ public class Move : MonoBehaviour {
 	void Movement(string direction)
 	{
 		transform.Translate(Vector3.right * speed * Time.deltaTime);
-		//animationCached.Play("run");
+		if(isGrounded ()){
+			animationCached.Play("run");
+		} else {
+			animationCached.Play("jump");
+		}
 	}
 	
 }

@@ -219,6 +219,7 @@
      <Compile Include="Assets\SVG Importer\Plugins\Utils\SVGShader.cs" />
      <Compile Include="Assets\SVG Importer\Plugins\Utils\SVGTransform2D.cs" />
      <Compile Include="Assets\SVG Importer\Plugins\Utils\SVGUtils.cs" />
+     <Compile Include="Assets\Scripts\Acceleration.cs" />
      <Compile Include="Assets\Scripts\AddObstacle.cs" />
      <Compile Include="Assets\Scripts\Breakable.cs" />
      <Compile Include="Assets\Scripts\CouratineUtil.cs" />
@@ -232,6 +233,7 @@
      <Compile Include="Assets\Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameStatus.cs" />
+     <Compile Include="Assets\Scripts\Grounded.cs" />
      <Compile Include="Assets\Scripts\InputController.cs" />
      <Compile Include="Assets\Scripts\Item.cs" />
      <Compile Include="Assets\Scripts\Jump.cs" />
@@ -241,7 +243,6 @@
      <Compile Include="Assets\Scripts\ParallaxEffect.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
-     <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
      <Compile Include="Assets\Scripts\TerrainManager.cs" />
      <Compile Include="Assets\Spriter2UnityDX-master\Assets\Spriter2UnityDX\Runtime\EntityRenderer.cs" />
      <Compile Include="Assets\Spriter2UnityDX-master\Assets\Spriter2UnityDX\Runtime\SortingOrderUpdater.cs" />

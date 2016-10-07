@@ -13,6 +13,9 @@ public class Jump : MonoBehaviour {
 	private Transform transformCached;
 	private RaycastHit2D hit;
 	private bool onAir;
+		
+	public delegate bool OnAction();
+	public static event OnAction isGrounded;
 	
 	// Awake
 	void Awake () {
@@ -25,34 +28,12 @@ public class Jump : MonoBehaviour {
 		InputController.onJump += DoJump;
 	}
 	
-	void DoJump (string option) {		
-		
-		if(IsGrounded()){
+	void DoJump (string option) {	
+
+		if(isGrounded ()){
 			rbCached.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
-			//animationCached.Play("jump");
 		}
 		
 	}
-
-    private bool IsGrounded()
-    {
-
-		Vector3 position = transformCached.position;
-		position.y = colliderCached.bounds.min.y + 0.1f;
-        hit = Physics2D.Raycast(position, Vector2.down, 0.2f, 1 << LayerMask.NameToLayer("Ground"));
-
-        if (hit && !hit.collider.isTrigger)
-        {
-			if (hit.collider.tag == "Ground" || hit.collider.tag == "InnerZone")
-            {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        return false;
-       
-    }
 		
 }

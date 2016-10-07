@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FollowPlayer : MonoBehaviour {
 
-	public GameObject target;
+	private GameObject target;
 	public float xOffset;
 	public float yOffset;
 	public float zOffset;
